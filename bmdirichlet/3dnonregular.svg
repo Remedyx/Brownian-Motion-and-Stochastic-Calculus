@@ -1,0 +1,75 @@
+<?xml version="1.1" encoding="windows-1252"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:latexdraw="http://latexdraw.sourceforge.net/namespaces/latexdraw"
+    version="1.1" baseProfile="full">
+    <g>
+        <g latexdraw:type="circle" id="id24798334">
+            <circle cx="340.0" cy="180.0" r="139.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="black" fill="none"/>
+        </g>
+        <g latexdraw:type="bezierCurve" id="id11349310">
+            <path
+                d="M 200.0 180.0 C 200.0 140.0 460.0 140.0 480.0 180.0 "
+                stroke-width="2.0" stroke="black" fill="none"
+                stroke-dasharray="8.819444444444445, 5.291666666666667" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="dot" id="id14815788" latexdraw:size="6.0"
+            latexdraw:dotShape="*" latexdraw:position="340.0 180.0">
+            <path
+                d="M 342.7692307692308 180.0 C 342.7692307692308 181.52940392260834 341.52940392260837 182.76923076923077 340.0 182.76923076923077 C 338.47059607739163 182.76923076923077 337.2307692307692 181.52940392260834 337.2307692307692 180.0 C 337.2307692307692 178.47059607739163 338.47059607739163 177.23076923076923 340.0 177.23076923076923 C 341.52940392260837 177.23076923076923 342.7692307692308 178.47059607739163 342.7692307692308 180.0 z "
+                fill="black" stroke-linecap="square"
+                stroke-linejoin="butt" stroke-width="0.375"
+                stroke-miterlimit="10.0" stroke-dashoffset="0.0" stroke="black"/>
+        </g>
+        <g latexdraw:type="dot" id="id3157507" latexdraw:size="6.0"
+            latexdraw:dotShape="*" latexdraw:position="340.0 40.0">
+            <path
+                d="M 342.7692307692308 40.0 C 342.7692307692308 41.52940392260835 341.52940392260837 42.769230769230774 340.0 42.769230769230774 C 338.47059607739163 42.769230769230774 337.2307692307692 41.52940392260835 337.2307692307692 40.0 C 337.2307692307692 38.470596077391654 338.47059607739163 37.23076923076923 340.0 37.23076923076923 C 341.52940392260837 37.23076923076923 342.7692307692308 38.470596077391654 342.7692307692308 40.0 z "
+                fill="black" stroke-linecap="square"
+                stroke-linejoin="butt" stroke-width="0.375"
+                stroke-miterlimit="10.0" stroke-dashoffset="0.0" stroke="black"/>
+        </g>
+        <g latexdraw:type="joinedLines" id="id20011609">
+            <polyline points="340.0,180.0 340.0,40.0 "
+                stroke-width="2.0" stroke="#ff9933" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="bezierCurve" id="id20912671">
+            <path
+                d="M 200.0 180.0 C 200.0 220.0 480.0 222.85714285714286 480.0 182.85714285714286 "
+                stroke-width="2.0" stroke="black" fill="none" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="text" id="id158739" fill="black" latexdraw:position="bl">
+            <text x="354.2857142857143" y="34.285714285714285">$u=(0,0,1)$</text>
+        </g>
+        <g latexdraw:type="text" id="id28113395" fill="black" latexdraw:position="bl">
+            <text x="354.2857142857143" y="182.85714285714286">$0$</text>
+        </g>
+        <g latexdraw:type="text" id="id20286040" fill="#ff9933" latexdraw:position="bl">
+            <text x="365.7142857142857" y="102.85714285714286">$I$</text>
+        </g>
+    </g>
+    <defs/>
+    <metadata>
+        <latexdraw:metadata>
+            <latexdraw:latexIncludes>\usepackage{amssymb}&#xd;
+</latexdraw:latexIncludes>
+            <latexdraw:displayXScale>true</latexdraw:displayXScale>
+            <latexdraw:displayYScale>true</latexdraw:displayYScale>
+            <latexdraw:unit>CM</latexdraw:unit>
+            <latexdraw:zoom>1.75</latexdraw:zoom>
+            <latexdraw:magneticGridStyle>CUSTOMISED</latexdraw:magneticGridStyle>
+            <latexdraw:gridGap>20</latexdraw:gridGap>
+            <latexdraw:magneticGrid>true</latexdraw:magneticGrid>
+            <latexdraw:version>3.3.8</latexdraw:version>
+            <latexdraw:size>
+                <latexdraw:width>1034</latexdraw:width>
+                <latexdraw:height>827</latexdraw:height>
+            </latexdraw:size>
+            <latexdraw:position>
+                <latexdraw:x>44.0</latexdraw:x>
+                <latexdraw:y>122.0</latexdraw:y>
+            </latexdraw:position>
+        </latexdraw:metadata>
+    </metadata>
+</svg>

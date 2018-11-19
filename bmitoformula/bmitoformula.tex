@@ -1,0 +1,336 @@
+\documentclass[../mainfile.tex]{subfiles}
+
+\begin{document}
+\section{Itô's formula}
+\subsection{Semimartingales}
+It will be useful to consider the class of processes that can be written as the sum of a local martingale and of an adapted continuous process with bounded variation:
+\begin{defn} A process $(Z_t)_{t \geq 0}$ is a continuous semimartingale in the filtered probability space $( \Omega, \mathcal{F}, ( \mathcal{F}_t)_{t \geq 0}, \mathbb{P})$ if it can be written as $Z_t=M_t+V_t$ where: \begin{itemize}
+\item $M$ is a local martingale in this filtered probability space.
+\item $V$ is the difference between two adapted continuous non-decreasing process $V^+$ and $V^{-}$ started from $0$ (equivalently: $V$ is a continuous adapted bounded variation process started from $0$). 
+\end{itemize}
+\end{defn}
+\begin{rem} If $Z$ is a continuous semimartingale, then the decomposition $Z=M+V$ is unique because if $Z=M+V=M'+V'$, then $C:=M-M'=V'-V$, so $C$ is a local martingale (LHS is difference of two local martingales) and it is of bounded variation (because RHS is the difference between two bounded variation processes), we know that this implies that $C=0$.  
+\end{rem}
+This is a nice class of processes because if $Z$ is a continuous semimartingale, we will see that $F(Z)$ is also a semimartingale when $F$ is $C^2$, and we will describe the decomposition of $F(Z)$ in terms of $Z=M+V$. 
+\begin{defn} The quadratic variation of a continuous semimartingale is the quadratic variation of its local martingale part.
+\end{defn}
+This definition makes sense because
+\begin{lem}\label{lem1} Suppose that $Z$ is a continuous semimartingale and that $Y$ is a continuous adapted process. For each $t \geq 0$, for all nested sequences $(\Delta_n)_{n \in \mathbb{N}}$ of subdivisions of $[0,t]$ with $|\Delta_n| \to 0$ one has 
+\begin{align*}
+\sum_{i=0}^{m_n-1} Y_{t_i^n}(Z_{t_{i+1}^n}-Z_{t_i^n})^2 \xrightarrow[n \to \infty]{\mathbb{P}} \int_0^t Y_s d  \langle Z \rangle_s 
+\end{align*}
+\end{lem}
+\newpage
+\begin{defn} When $Z=M+V$ and $Z'=M'+V'$ are two continuous semimartingales (in the same filtered probability space), we define the cross-variation $\langle Z,  Z' \rangle_t$ to be the crossvariation of $\langle M, M' \rangle_t$ of their two local martingale parts.
+\end{defn}
+\begin{cor}\label{cor1} Suppose that $Z$ and $Z'$ are two continuous semimartingales and that $Y$ is an adapted continuous process. For each $t \geq 0$, for all nested sequences $(\Delta_n)_{n \geq 0}$ of subdivisions of $[0,t]$ with $|\Delta_n| \to 0$,  one has 
+\begin{align*}
+\sum_{i=0}^{m_n-1} Y_{t_i^n} (Z_{t_{i+1}^n}-Z_{t_i^n})(Z_{t_{i+1}^n}'-Z_{t_i^n}') \xrightarrow[n \to \infty]{ \mathbb{P}} \int_0^t Y_s d \langle Z, Z' \rangle_s
+\end{align*}
+\end{cor}
+\subsubsection{Stochastic integrals with respect to a continuous semimartingale}
+We can then note that it is no problem to define the integral of a progressively measurable stochastic process $K$ with respect to an adapted continuous bounded variation process $V$ as soon as  
+\begin{align*}
+\int_0^t |K_s| |dV_s| < \infty
+\end{align*}
+(see for instance exercise sheet for details about how to define $|dV_s|$). In the sequel, we will in fact almost only deal with the case where the process $K_s$ is almost surely continuous, in which case the integral $\int_0^t K_s d V_s$ is always well-defined, as a Lebesgue-Stieltjes integral. 
+\begin{defn} Let $(Z_t)_{t \geq 0}$ be a continuous semimartingale, $K$ a progressively measurable stochastic process, then we define
+\begin{align*}
+\int_0^t K_s dZ_s := \int_0^t K_s dM_s + \int_0^t K_s dV_s
+\end{align*}
+which is well-defined as soon $\int_0^t K_s^2 d \langle M \rangle_s$ and $\int_0^t |K_s| |dV_s|$ are finite. The integral with respect to $M$ is the previously defined stochastic integral and the integral with respect to $V$ is the Stieltjes integral. 
+\end{defn}
+\begin{rem} When $K$ is an adapted and continuous process, one can always define $\int_0^t K_s dZ_s$, because $\int_0^t K_s dV_s$ is always well-defined. 
+\end{rem}
+\begin{lem}\label{lem2} When $K$ is adapted and continuous, we have that for all $t \geq 0$, for all given sequences $(\Delta_n)_{n \in \mathbb{N}}$ of subdivisions of $[0,t]$ with $|\Delta_n| \to 0$ \begin{align*}
+\sum_{i < m_n} K_{t_i^n}(Z_{t_{i+1}^n}-Z_{t_i^n}) \xrightarrow[n \to \infty]{\mathbb{P}} \int_0^t K_sdZ_s.
+\end{align*}
+\end{lem}
+\newpage
+\subsection{Itô's formula}
+We are now ready to state Itô's formula in the case of one-dimensional continuous semimartingales: 
+\begin{thm}[Itô's formula,  one-dimensional case] Suppose that $Z$ is a continuous semimartingale (with decomposition $Z=M+V)$ and that $F: D \to \mathbb{R}$ is a $C^2$ function from some open set $D \subset \mathbb{R}$ into $\mathbb{R}$ and that almost surely $Z_t \in D$ for all $t \geq 0$. Then, the process $(F(Z_t))_{t \geq 0}$ is also a continuous semimartingale, and almost surely for each $t \geq 0$ we have
+\begin{align*}
+F(Z_t)= F(Z_0)+ \int_0^t F' (Z_s)d Z_s + \frac{1}{2} \int_0^t F''(Z_s)d \langle Z \rangle_s.
+\end{align*}
+\end{thm}
+\begin{rem} \
+\begin{itemize}
+\item We stress that in this formula,  the integral $\int_0^t F(Z_s)d Z_s$ is the sum of the two integrals corresponding to the martingale part and to the bounded variation part, so that 
+\begin{align*}
+F(Z_t)= F(Z_0) + \int_0^t F'(Z_s)d M_s  + \int_0^t F' (Z_s)dV_s + \frac{1}{2} \int_0^t F''(Z_s)d \langle M \rangle_s. 
+\end{align*}
+\item We then see, that the local martingale part of the continuous semimartingale $(F(Z_t))_{t \geq 0}$ is given by 
+\begin{align*}
+F(Z_0)+ \int_0^t F'(Z_s)dM_s,
+\end{align*}
+whereas the bounded variation part is the sum of the latter two terms, i.e.
+\begin{align*}
+\int_0^t F' (Z_s) dV_s + \frac{1}{2} \int_0^t F''(Z_s) d \langle M \rangle_s. 
+\end{align*}
+In particular we see that Itô's formula gives us the unique decomposition of the semimartingale $F(Z_t)$. 
+\item If $Z_t=B_t$ is a Brownian motion in $1$ dimension (every continuous martingale is of course a semimartingale with $V=0$) then 
+\begin{align*}
+F(B_t)= F(B_0) + \int_0^t F'(B_s)dB_s + \frac{1}{2} \int_0^t F''(B_s)ds. 
+\end{align*}
+\end{itemize} 
+\end{rem}
+\newpage
+\begin{proof}[Proof of Itô's formula] The proof will be a direct consequence of the combination of Taylor's expansion for $F$ with the approximation results of stochastic integrals and of quadratic variations. \\
+\\
+We notice that it will suffice to prove for each fixed $t$, the identity asserted by Itô's formula for $F(Z_t)$ almost surely,  this is enough because both sides are almost surely continuous. \\
+\\
+Moreover, for each $k$ let $D_k$ denote the set of points that are at a distance at least $1/k$ of $\mathbb{R}\setminus D$. We can define the stopping time 
+\begin{align*}
+T_k = \inf \{ t >0 , |M_t| \geq k \text{ or } |V_t|=k \text{ or } |Z_t|=k \text{ or } Z_t \notin D_k \}
+\end{align*}
+and if we know that the result holds for all the continuous semimartingales $Z^{T_k}$, then we can deduce that it will hold for $Z$ as well, by letting $k \to \infty$. \\
+\\
+ Hence, we conclude that it suffices to show the identity for a fixed time $t$ and in the case where the semi-martingale $Z$ does almost surely not exit $[-k,k] \cap D_k$. \\
+ \\
+ Note first that $F$ being $C^2$ in a $1/2k$ neighborhood of $[-k,k] \cap D_k$, there exists a constant such that for all $z \in [-k-(1/2k),k+(1/2k)] \cap D_k$, we have $\max ( |F(z)|, F'(z)|, |F''(z)|) \leq C$. In particular Taylor's formula for $F$ can simply be written as 
+ \begin{align*}
+ F(z+h)=F(z)+hF'(z)+h^2F''(z)/2 + h^2R(z,h), \tag{*}
+ \end{align*}
+ where $\sup_{z \in [-k,k]} R(z,h)$ tends to $0$ as $h \to 0$. \\
+ \\
+We now choose $\Delta_n$ to be a subdivision of $[0,t]$ into $2^n$ intervals of length $t2^{-n}$, we denote the increments $h_i^n:= Z_{t_{i+1}^n}-Z_{t_i^n}$, we then simply get
+\begin{align*}
+F(Z_t)-F(Z_0)&= \sum_{i<2^n} (F(Z_{t_{i+1}^n})-F(Z_{t_i^n})) =  \sum_{i <2^n} ( F(Z_{t_i^n} + h_i^n)-F(Z_{t_i^n})) \\
+&\overset{(*)}= \sum_{i<2^n} (F'(Z_{t_i^n}) \times h_i^n) + \frac{1}{2} \sum_{i < 2^n} (F''(Z_{t_i^n}) \times (h_i^n)^2) \\ & \qquad + \sum_{i < 2^n} (R(Z_{t_i^n},h_i^n) \times (h_i^n)^2).
+\end{align*}
+By Lemma \ref{lem1} and Lemma \ref{lem2} we know that for the first two sums
+\begin{align*}
+\sum_{i<2^n} (F'(Z_{t_i^n}) \times h_i^n) + \frac{1}{2} \sum_{i < 2^n} (F''(Z_{t_i^n}) \times (h_i^n)^2) \xrightarrow[n \to \infty]{\mathbb{P}} &\int_0^t F'(Z_s)dZ_s  \\ &+ \frac{1}{2} \int_0^t F''(Z_s)d \langle Z \rangle_s
+\end{align*}
+\newpage
+So it remains to check that the last sum goes to $0$ in probability as $n \to \infty$. But we do already know, also by Lemma \ref{lem1} that
+\begin{align*}
+\sum_{i < 2^n} (h_i^n)^2 \xrightarrow[n \to \infty]{ \mathbb{P}} \langle Z \rangle_t.
+\end{align*}
+Since $Z$ is almost surely continuous we get that
+\begin{align*}
+\lim_{n \to \infty} \sup_{i < 2^n} |R(Z_{t_i^n}, h_i^n)| =0.
+\end{align*}
+We therefore conclude that
+\begin{align*}
+\left| \sum_{i <2^n} R(Z_{t_i^n}, h_i^n) \times (h_i^n)^2 \right| \leq \sup_{i < 2^n} |R(Z_{t_i^n}, h_i^n)| \sum_{i <2^n} (h_i^n)^2 \xrightarrow[n \to \infty]{ \mathbb{P}} 0.
+\end{align*}
+which concludes the proof of Itô's formula. 
+\end{proof}
+\subsubsection{Itô's formula in higher dimensions}
+It is in fact very useful to consider continuous semimartingales with values in $\mathbb{R}^d$ for $d \geq 2$.
+\begin{defn} A process $(Z_t=(Z_t^1, \dots , Z_t^d))_{t \geq 0}$ with values in $\mathbb{R}^d$ is a continuous ($d$-dimensional) semimartingales, if for reach $1 \leq j \leq d$, the process $Z^j$ is a (one-dimensional) continuous semimartingale.
+\end{defn}
+\begin{thm}[Itô's formula in higher dimensions] Suppose that $Z$ is a $d$-dimensional continuous semimartingale (with decomposition $Z=M+V)$ and that $F$ is a $C^2$ function,  from some open domains $D \subset \mathbb{R}^d$ to $\mathbb{R}$. Suppose that almost surely, $Z_t \in D$ for all $t \geq 0$. Then,  the process $(F(Z_t))_{t \geq 0}$ is a continuous one-dimensional semimartingale, and almost surely, for each $t \geq 0$,
+\begin{align*}
+F(Z_t)=F(Z_0) + \sum_{j=1}^d \int_0^t \frac{\partial F}{\partial z_j}(Z_s) d Z_s^j + \frac{1}{2} \sum_{1\leq i,j \leq d } \int_0^t \frac{\partial^2 F}{\partial z_i \partial z_j}(Z_s)d \langle Z^i, Z^j \rangle_s. 
+\end{align*}
+\end{thm}
+\begin{proof}
+Is exactly as the one dimensional case. Just use Corollary \ref{cor1} to control the crossvariation terms. 
+\end{proof}
+\begin{rem}One simple case is when $Z=(X,Y)$ and where $F(x,y)=xy$.  It shows that the product of two continuous semimartingales is a continuous semimartingale and that (integration by parts formula for cont. semimg.)
+\begin{align*}
+X_tY_t = X_0Y_0 + \int_0^t X_sdY_s + \int_0^t Y_s dX_s + \langle X,Y \rangle_t 
+\end{align*}
+\end{rem}
+\newpage
+\subsection{Applications of Itô's formula}
+A first important consequence of Itô's formula is the fact that, just as in the case of Brownian motion, when one starts with a local martingale $M$, it is possible to define an infinite family of exponential local martingales $\mathcal{E}( \lambda M)$.
+\begin{prop}When $M$ is a local martingale in a given filtered probability space. We then define for all $t \geq 0$,
+\begin{align*}
+\mathcal{E}_t^\lambda= \mathcal{E}(\lambda M)_t:= \exp\left(\lambda M_t- \frac{\lambda^2}{2}\langle M \rangle_t\right).
+\end{align*}
+The process $\mathcal{E}=( \mathcal{E}_t^\lambda)_{t \geq 0}$ is then a local martingale. Moreover, for $\lambda=1$ and for all $t \geq 0$, 
+\begin{align*}
+\mathcal{E}_t&= \mathcal{E}_0 + \int_0^t \mathcal{E}_s dM_s, \text{ and} \\
+M_t&= M_0 + \int_0^t \frac{d \mathcal{E}_s}{\mathcal{E}_s}.
+\end{align*}
+\end{prop}
+\begin{proof}
+Let us consider $Z_t= ( M_t, \langle M \rangle_t)$, which is a continuous semimartingale with values in $\mathbb{R}^2$. Let us also take the function $F(a,b)= \exp( \lambda a - (\lambda^2/2)b)$, which is a $C^2$ function from $\mathbb{R}^2$ to $ \mathbb{R}$.
+\\
+\\
+Before we apply Itô's formula we notice that the quadratic variation terms involving the derivatives with respect to the second variable vanish, because $\langle M \rangle_t$ is a continuous bounded variation process with no quadratic variation. Thus by Itô's formula we obtain that
+\begin{align*}
+F(Z_t)&= F(Z_0) + \int_0^t \lambda f(Z_s)dM_s + \int_0^t \overbrace{- \frac{\lambda^2}{2}F(Z_s)}^{= \partial_a F}d \langle M \rangle _s \\
+& \qquad + \frac{1}{2} \int_0^t  \underbrace{\lambda^2 F(Z_s)}_{= \partial^2_a F} d \langle M \rangle_s \\
+&= F(Z_0) +  \int_0^t \lambda f(Z_s)dM_s \rightsquigarrow \text{local martingale}.
+\end{align*}
+We thus see we have indeed for $\lambda=1$,
+\begin{align*}
+\mathcal{E}_t= \mathcal{E}_0 + \int_0^t \mathcal{E}_s dM_s.
+\end{align*}
+\newpage
+In particular, the decomposition 
+\begin{align*}
+\mathcal{E}_t= \mathcal{E}_0 + \int_0^t \mathcal{E}_s dM_s.
+\end{align*}
+yields us
+\begin{align*}
+\langle \mathcal{E}_t \rangle_t = \langle \mathcal{E}_0 \rangle_t + \langle \int_0^t \mathcal{E}_s d M_s \rangle = 0 + \int_0^t \mathcal{E}_s^2 d\langle M\rangle_s.
+\end{align*}
+or equivalently:
+\begin{align*}
+d \langle \mathcal{E} \rangle_t = \mathcal{E}_t^2 d\langle M\rangle_t \tag{*}
+\end{align*}
+Conversely, since we know now that $(\mathcal{E}_t)_{t \geq 0}$ is a local martingale, and moreover since it is always positive, we can apply Itô's formula to obtain the local martingale/bounded variation process decomposition of $\log \mathcal{E}_t$, we get
+\begin{align*}
+\log \mathcal{E}_t & =  \log \mathcal{E}_0 + \int_0^t \frac{d \mathcal{E}_s}{\mathcal{E}_s}- \frac{1}{2} \int_0^t ( \mathcal{E}_s)^{-2} d \langle \mathcal{E} \rangle_s  \\
+& \overset{(*)}=  M_0 + \int_0^t \frac{d \mathcal{E}_s}{\mathcal{E}_s} - \frac{1}{2} \langle M \rangle_t
+\end{align*}
+So that indeed we get (by solving for $M_t$ in $\log \mathcal{E}_t)$ that
+\begin{align*}
+M_t = M_0 + \int_0^t \frac{d \mathcal{E}_s}{\mathcal{E}_s}
+\end{align*}
+\end{proof}
+\begin{rem} The proof above shows that if $F$ is any $C^2$ function on $\mathbb{R}^2$, such that 
+\begin{align*}
+\partial_a F(a,b) + \frac{1}{2} \partial_a^2 F(a,b)=0
+\end{align*}
+then $( F(M_t, \langle M \rangle_t))_{t \geq 0}$ is a local martingale as soon $M$ is a local martingale. In particular, this shows that for any $z \in \mathbb{C}$, the real part and the imaginary parts of $\exp(z M_t-z^2 \langle M \rangle_t/2)$ are local martingales.
+\\\\
+Especially, this shows that for any $z \in \mathbb{C}$, 
+\begin{align*}
+ ( \exp(z M_t-z^2 \langle M \rangle_t /2))_{t \geq 0}
+\end{align*}
+is a complex-valued local martingale. 
+\end{rem}
+\newpage
+\begin{cor}[Lévy's characterization of a Brownian motion in one dimension] Suppose that $M$ is a local martingale started from the origin, such that $(M_t^2-t)_{t \geq 0}$ is also a local martingale (equivalently $\langle M \rangle_t=t$ for all $t \geq 0)$. Then $M$ is a Brownian motion. 
+\end{cor}
+\begin{proof}
+Let us first check that for a given $t \geq 0$, the law of $M_t$ is that of a Brownian motion at time $t$. Let us look at 
+\begin{align*}
+\tilde{\mathcal{E}}_t := \mathcal{E}(i \lambda M )_t= \exp(i \lambda M_t + \lambda^2 \langle M \rangle_t/2) = \exp(i \lambda M_t + \lambda^2 t/2).
+\end{align*}
+Since $| \tilde{\mathcal{E}}_t| = \exp( \lambda^2 t/2)$ (which is deterministic and thus in $L^1$). Let us then take a sequence of non-decreasing stopping times $T_n$ that diverge to $\infty$. Then $( \tilde{\mathcal{E}}_{t \wedge T_n})_{t \geq 0}$ is a martingale and $|\tilde{\mathcal{E}}_{t \wedge T_n}| \leq \exp (\lambda^2 t/2)$ (integrable), thus by dominated convergence (taking $n \to \infty$) we get that $(\tilde{\mathcal{E}}_t)_{t \geq 0}$ is a complex martingale, thus
+\begin{align*}
+\mathbb{E}(\exp(i \lambda M_t + \lambda^2 t/2))= \mathbb{E}( \tilde{\mathcal{E}}_t)= \mathbb{E}( \tilde{\mathcal{E}}_0)=1,
+\end{align*}
+so that indeed the characteristic function of $M_t$ is given by 
+\begin{align*}
+\mathbb{E}( \exp(i \lambda M_t))= \exp( - \lambda^2 t/2) \implies M_t \sim \mathcal{N}(0,t). 
+\end{align*}
+More generally, we have for all $s \leq t$ 
+\begin{align*}
+\mathbb{E}( \exp(i \lambda M_{t+s}+ \frac{\lambda^2}{2}(t+s)) \mid \mathcal{F}_s) = \exp(i \lambda M_s + \frac{\lambda^2}{2}s)  \\
+\implies \mathbb{E}(e^{i \lambda (M_{s+t}-M_s)} \mid \mathcal{F}_s) = e^{- \frac{\lambda^2}{2}t}
+\end{align*}
+Hence for all $t\geq 0$ and for all $s \leq t$, $M_{t+s}-M_s$ is a distributed as $\mathcal{N}(0,t)$ and is independent of $\mathcal{F}_s$, which shows that $M$ has stationary independent increments. Thus $M$ is indeed a Brownian motion. 
+\end{proof}
+\begin{cor}[Lévy's characterization of a Brownian motion in $\mathbb{R}^d$] Suppose that $M=(M^1, \dots , M^d)$ is a $d$-dimensional local martingale started from the origin such that:
+\begin{itemize}
+\item For all $k \neq j$, $\langle M^k, M^j \rangle_t=0$. 
+\item For all $1 \leq j \leq d$, $\langle M^j \rangle_t =t$. 
+\end{itemize}
+Then $M$ is a Brownian motion in $\mathbb{R}^d$. 
+\end{cor}
+\begin{cor} Suppose that $(M_t)_{t \geq 0}$ is a local martingale started from the origin, such that $\langle M \rangle_\infty = \infty$ almost surely. Define for all $u \geq 0$, $\tau_u:= \inf \{ t >0 , \langle M \rangle_t > u \}$. Then the process $(M_{\tau_u})_{u \geq 0}$ is a Brownian motion. 
+\end{cor}
+\newpage
+\subsection{More applications of Itô's formula}
+Itô's formula is an incredible powerful tool which we will demonstrate with the next couple of examples. We will start by revisiting some results that we already know (related to the Dirichlet Problem).
+\begin{prop} Let $D \subset \mathbb{R}^d$ be a bounded open domain, if $H: \overline{D} \to \mathbb{R}$ is such that 
+\begin{itemize}
+\item $H$ is continuous in $\overline{D}$.
+\item $H$ is $C^2$ in $D$ and $\Delta H=0$ in $D$. (i.e. Harmonic in $D$).
+\end{itemize}
+Then $H(x)= \mathbb{E}_x(H(B_\tau))$ for all $x \in \overline{D}$ where $B$ denotes a $d$-dimensional Brownian motion started from $x$ and $\tau = \inf \{ t > 0 : B_t \in \partial D\}$ is the first exit time of $B$ from $D$.
+\end{prop}
+\begin{proof}
+Let us fix $x \in D$ and start a Brownian motion $B$ from $x$. For $\epsilon >0$ define $T_\epsilon:= \inf \{ t>0 : d(B_t, \partial D) = \epsilon \}$ and we notice that $T_\epsilon \to \tau$ as $\epsilon \to 0$. We need this stopping time because it guarantees that a.s. $B_{t \wedge T_\epsilon} \in D$ for all $t \geq 0$. For a $d$-dimension Brownian motion we have for the crossvariations
+\begin{align*}
+\begin{cases} \langle B^i,  B^j \rangle_t =0, & \text{if } i \neq j \\
+\langle B^i, B^i \rangle_t =t, & \text{if } i=j \end{cases}
+\end{align*}
+\textit{(in order to show the first case in the statements above one actually needs to use the fact that $B^i, B^j$ are independent for $i \neq j$)}.\\
+Since $H \in C^2$ in $D$, we can apply Itô's formula to the martingale $B^{T_\epsilon}$ to obtain 
+\begin{align*}
+H(B_{t \wedge T_\epsilon}) &= H(B_0=x)+ \sum_{j=1}^d \int_0^{t \wedge T_\epsilon} \frac{\partial H}{\partial z_j}(B_s)dB_s^j + \frac{1}{2} \int_0^{t \wedge T_\epsilon} \Delta H(B_s)ds \\
+&= H(x) + \sum_{j=1}^d \int_0^{t \wedge T_\epsilon} \frac{\partial H}{\partial z_j}(B_s)dB_s^j
+\end{align*}
+hence $(H(B_{t \wedge T_\epsilon}))_{t \geq 0}$ is a local martingale, but $H$ is also bounded (because it is continuous on the compact set $\overline{D}$) and thus $(H(B_{t \wedge T_\epsilon}))_{t \geq 0}$ is in fact a (bounded) continuous martingale. Since it is bounded it is also UI and thus by the optional stopping theorem we get that 
+\begin{align*}
+\mathbb{E}(H(B_{T \epsilon}))= H(x)
+\end{align*}
+Letting $\epsilon \to 0$ we finally get by dominated convergence theorem ($H$ is bounded), that 
+\begin{align*}
+\mathbb{E}_x(H(B_\tau))=H(x)
+\end{align*}
+which proves the claim.
+\end{proof}
+\newpage
+Let us now come back to one of the cousins of the Dirichlet problem, which is in fact a generalisation of the Dirichlet problem.
+\begin{prop} Suppose that $D$ is an open bounded subset of $\mathbb{R}^d$ and we are given $\alpha: D \to \mathbb{R}$ a continuous, bounded, non-negative function. Let $H: \overline{D} \to \mathbb{R}$ is continuous, $C^2$ in $D$ and such that 
+\begin{align*}
+\Delta H(x) = 2 \alpha (x) H(x), \text{ for all } x \in D,
+\end{align*}
+then
+\begin{align*}
+H(x)= \mathbb{E}_x\left[ H(B_\tau) \exp \left(- \int_0^\tau \alpha (B_s)ds\right) \right].
+\end{align*}
+\end{prop}
+\begin{proof}
+Let us define for all $t \leq T_\epsilon$
+\begin{align*}
+Z_t:= H(B_t)e^{-  \int_0^t \alpha (B_s)ds}
+\end{align*}
+We then notice that $Z_t=F(B_t,Y_t)$ where $F(b,y)=H(b)e^{-y}$ is a $C^2$ function from $\mathbb{R}^d \times \mathbb{R}= \mathbb{R}^{d+1}$ to $\mathbb{R}$ (because $H$ is $C^2$) where $Y_t= \int_0^t \alpha (B_s)ds$ is clearly of bounded variation, in particular $(B_t,Y_t)$ is indeed a semimartingale in dimension $d+1$. 
+\\\\
+We also notice that the crossvariation of the any Brownian motion $B^j$ for $1 \leq j \leq d$ with the process $Y_t$ always gives $0$, because $Y_t$ is of bounded variation, in particular $\langle Y_t,Y_t \rangle_t=0$. Itô's formula thus yields:
+\begin{align*}
+Z_t=F(B_t,Y_t)&= Z_0 + \sum_{j=1}^d \int_0^t \frac{\partial H}{\partial z_j}(B_s) e^{-Y_s} d B_s^j - \int_0^t H(B_s)e^{-Y_s} \underbrace{dY_s}_{= \alpha (B_s)ds} \\
+& + \frac{1}{2} \int_0^t \underbrace{\Delta H(B_s)}_{= 2 \alpha(B_s)H(B_s)}e^{-Y_s}ds \\
+&= Z_0 + \sum_{j=1}^d \int_0^t \frac{\partial H}{\partial z_j}(B_s) e^{-Y_s} d B_s^j
+\end{align*} 
+We thus conclude that $(F(B_{t \wedge T_\epsilon}, Y_{t \wedge T_\epsilon}))_{t \geq 0}$  is a local martingale, since $F$ is also bounded (because $H$ and $\exp^{-y}$ is) so in particular it is a bounded continuous martingale (and thus also UI), by optional stopping we get that 
+\begin{align*}
+\mathbb{E}_x(Z_{T_\epsilon})=H(x) = \mathbb{E}_x\left[ H(B_{T_\epsilon}) \exp \left(- \int_0^{T_\epsilon} \alpha (B_s)ds\right) \right].
+\end{align*}
+Letting $\epsilon \to 0$ we obtain the claim by dominated convergence. 
+\end{proof}
+\newpage
+\subsubsection{Brownian motion and the heat equation}
+The same approach as used in the previous applications shows that Brownian motion is directly related to the \textit{heat equation}.
+\\\\
+\textbf{Setup:} Suppose that we are given a bounded open domain $D \subset \mathbb{R}^d$ with a regular boundary, and that $f: \overline{D} \to \mathbb{R}$ is continuous on $\overline{D}$ that is equal to $0$ on $\partial D$.
+\\
+\\
+ We say that the continuous function $F$ defined on $\overline{D} \times [0, \infty)$ solves the heat equation with $0$ boundary conditions on $\partial D$ and initial value $f$ if:
+ \begin{itemize}
+ \item The function $F: (x,t) \mapsto F(x,t)$ is $C^2$ on $D \times (0, \infty)$, and it satisfies $\partial_t F(t,x)= \frac{1}{2} \Delta_x F(t,x)$.
+ \item For each $t \geq 0$, $F(x,t)=0$ when $x \in \partial D$. 
+ \item For each $x \in D$, $F(x,0)=f(x)$.
+ \end{itemize}
+ \begin{prop} If the solution to the heat equation exists, then it is unique and it is equal to  
+ \begin{align*}
+ F(x,t)= \mathbb{E}_x(f(B_t)1_{t < T})
+ \end{align*}
+ where $B$ is a Brownian motion started from $x$ and $T$ denotes its exit time from $D$. 
+ \end{prop}
+ \begin{proof}
+ Suppose that $F$ is a solution to the heat equation. Let $T_\epsilon$ be as before the first time at which $B$ is at distance less than $\epsilon$ from $\partial D$. Let us fix $t_0 >$ and let us consider for all $t \leq T_\epsilon \wedge t_0$ the process 
+\begin{align*}
+Z_t=F(B_t,t_0-t)
+\end{align*}
+(we set $Z_t= Z_{t_0 \wedge T_\epsilon}$ for $t \geq t_0 \wedge T_\epsilon$). Then $(B_t,t_0-t)$ is again a $d+1$ dimensional semi-martingale. Itô's formula yields
+\begin{align*}
+Z_t&=Z_0 + \sum_{j=1}^d \int_0^t \partial_{x_j} F(B_s,t_0-s) dB_s^j - \int_0^t \partial_t F(B_s,t_0-s)ds \\  & \qquad + \frac{1}{2} \int_0^t \Delta_x F(B_s,t_0-s)ds \\
+& = Z_0 + \sum_{j=1}^d \int_0^t \partial_{x_j} F(B_s,t_0-s) dB_s^j
+\end{align*}
+\newpage
+So we obtain once again that $(Z_t)_{t \geq 0}$ is a local martingale, it is bounded and thus a (true) bounded martingale, thus we get
+\begin{align*}
+\mathbb{E}(Z_{t_0 \wedge T_\epsilon})= \mathbb{E}(Z_0)= F(B_0,t_0)=F(x,t_0)
+\end{align*}
+Letting $\epsilon \to 0$ (dominated convergence) gives us for the left hand side
+\begin{align*}
+\mathbb{E}(Z_{t_0 \wedge T}) &=\mathbb{E}(F(B_{t_0 \wedge T}, t_0-(t_0 \wedge T))) \\
+& = \mathbb{E}(F(B_{t_0},0) 1_{t_0 < T}) + \mathbb{E}(F(B_T,t_0-T) 1_{t_0 >T}) \\ 
+&= \mathbb{E}(f(B_{t_0})1_{t_0 < T}) +0 = \mathbb{E}(f(B_{t_0})1_{t_0 < T})
+\end{align*}
+where we used that $F(B_T,t_0-T)=0$ because $B_T \in \partial D$. This completes the proof of the statement.
+ \end{proof}
+\end{document}

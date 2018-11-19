@@ -1,0 +1,340 @@
+\documentclass[../mainfile.tex]{subfiles}
+
+
+
+\begin{document}
+\section{Stochastic integrals}
+\subsection{Warm-up}
+We are now ready to define \textit{stochastic integrals}. Before doing this rigorously, it is useful to informally explain what this means. On the one hand, we are given a continuous martingale $(M_t)_{t \geq 0}$ (or a local martingale) in some filtered probability space. For the time being, we can first think of this continuous martingale to be a Brownian motion $(B_t)_{t \geq 0}$. Then, suppose that $(H_t)_{t \geq 0}$ is a continuous real-valued process that is adapted to the same filtration. We will define a new continuous (local) martingale $(I_t)_{t \geq 0}$, denoted by 
+\begin{align*}
+I_t= \int_0^t H_sdB_s, \tag{Notation}
+\end{align*}
+which is called a stochastic integral. It can be understood as follows: Locally, at time $t$, it follows the increments of $B$ but it \textit{"decided"} to multiply those increments by the local factor $H_t$. \\
+\\
+In particular, we see that a good approximation of the value of $I_t$ is obainted by considering a nested sequence of subdivisions $\Delta_n$ of $[0,t]$ with $|\Delta_n| \to 0$ and to consider the sum 
+\begin{align*}
+I_n:= \sum_{j=0}^{m_n-1} H_{t_j^n} (B_{t_{j+1}^n}-B_{t_j^n}). 
+\end{align*}
+Indeed, we shall see that $I_n$ does converge in probability to our stochastic integral $I_t$ as $n \to \infty$.
+\begin{rem} As we have already discussed,  an example of stochastic integral is provided by the process $B_t^2-t$ that can be viewed as the stochastic integral $\int_0^t 2B_s dB_s$ and we have seen that indeed for a given $t$, this quantity $B_t^2-t$ is the limit (in $L^2$) of 
+\begin{align*}
+I_n = \sum_{j=0}^{m_n-1} 2B_{t_j^n} (B_{t_{j+1}^n}-B_{t_j^n}). 
+\end{align*}
+It is very important to notice that in this discrete approximation of $I_n$, one chooses the  magnification factor $H_{t_j^n}=B_{t_j^n}$ \textit{just before} the increment $(B_{t_{j+1}^n}-B_{t_j^n})$ occurs (i.e. we choose $B_{t_j^n}$ instead of $B_{t_{j+1}^n}$). So even if the notation $H_sdB_s$ in a stochastic integral describes things at infinitesimal levels, it still means at that infinitesimal level, one \textit{chooses} $H_s$ (infinitesimally) before the increments $dB_s$ occurs. As opposed to the Lebesgue integral, where "orientation" of the time-axis will play an important role in stochastic integrals. 
+\end{rem}
+\subsection{The $L^2$ theory of stochastic integrals with respect to Brownian motion}
+Let us now first describe how to properly define stochastic integrals with respect to a one-dimensional Brownian motion $B:=(B_t)_{t \geq 0}$. 
+\subsubsection{Integral of elementary processes, and strategy of construction}
+\begin{defn} The process $(K_t)_{t \geq 0}$ is said to be an elementary process if it is of the type 
+\begin{align*}
+K_t = \sum_{j=0}^{m-1} Y_{a_j} 1_{t \in (a_j,a_{j+1}]}, \tag{*}
+\end{align*}
+where $m \in \mathbb{N}$, $0 \leq a_0 < \dots < a_m$ are deterministic times and each $Y_{a_j}$ is an $\mathcal{F}_{a_j}$-measurable random variable in $L^2$. We denote by $\mathcal{E}_B$ the set of all elementary processes such that $K_t$ is in $L^2$ (that is exactly the fact if the $Y_{a_j}$ are in $L^2$). 
+\end{defn}
+\begin{rem} $\mathcal{E}_B$ is a vector space. 
+\end{rem}
+\begin{defn}[Stochastic integral for $\mathcal{E}_B$] For each elementary process $K_t$ as in the form (*) in $\mathcal{E}_B$, we define the stochastic integral to be the continuous process $I(K)=(I(K)_t)_{t \geq 0}$, such that for all $t \geq 0$
+\begin{align*}
+I_t^K:= \sum_{j=0}^{m-1} Y_{a_j} (B_{t \wedge a_{j+1}}-B_{t \wedge a_j}).
+\end{align*}
+We also denote this by
+\begin{align*}
+I_t^K = \int_0^t K_s dB_s.
+\end{align*}
+\end{defn}
+\newpage
+Let us give a couple of remarks that follow immediately by these definitions:
+\begin{itemize}
+\item $t \mapsto I_t^K$ is continuous and on each interval $[a_j, a_{j+1}]$ its increments are $Y_{a_j}$ times the increments of $B$. 
+\item  $(I_t^K)_{t \geq 0}$ is indeed a continuous martingale in $L^2$ (difference of $L^2$ martingales). Moreover it is constant for all $t \geq a_m$, and that if we denote the constant value $I_{a_m}^K$ by $I_\infty^K$, then (using that BM has independent increments, and $B_{a_{j+1}}-B_{a_j}$ is independent of $\mathcal{F}_{a_j} \ni Y_{a_j}$)
+\begin{align*}
+\mathbb{E}((I_\infty^K)^2) & = \mathbb{E} \left[ \left( \sum_{j=0}^{m-1} Y_{a_j}(B_{a_j+1}-B_{a_j})\right)^2 \right]\\ &= \sum_{j=0}^{m-1} \mathbb{E}(Y_{a_j}^2)(a_{j+1}-a_j) = \sum_{k=0}^{m-1} \mathbb{E}(Y_{a_j}^2) \int_0^\infty 1_{t \in (a_j,a_{j+1}]} dt \\ &= \mathbb{E}\left( \int_0^\infty \sum_{j=0}^{m-1} Y_{a_j}^2 1 _{t \in (a_j,a_{j+1}]}dt\right) = \mathbb{E} \left( \int_0^\infty  K_t^2 dt\right).
+\end{align*}
+Which shows that
+\begin{align*}
+\mathbb{E} \left[ \left( \int_0^\infty K_sd B_s \right)^2 \right] = \mathbb{E}\left[ \int_0^\infty K_s^2 ds \right].
+\end{align*}
+So, the martingale $I^K$ is bounded in $L^2$ if and only if $K \in \mathcal{E}_B$. 
+\item The quadratic variation  of $I^K$ is given by the process 
+\begin{align*}
+t \mapsto \int_0^t K_s^2 ds
+\end{align*}
+\item Similarly, as in the item described above, simply because the difference between two elementary processes $K$ and $K'$ is again an elementary process, and because $I^K$ is clearly a linear function in $K$,  we see that for all $K,K' \in \mathcal{E}_B$,  
+\begin{align*}
+\mathbb{E}\left[ \left( \int_0^\infty (K_s-K_s')dB_s\right)^2 \right] = \mathbb{E}[(I(K-K')_\infty)^2] = \mathbb{E} \left[ \int_0^\infty (K_s-K_s')^2ds \right]
+\end{align*}
+Hence, one can measure the distance between $I(K)$ and $I(K')$ in terms of some distance of $K$ and $K'$. This identity implies also that the crossvariation between $I(K)$ and $I(K')$ is given by 
+\begin{align*}
+\int_0^t K_sK_s'ds. 
+\end{align*}
+\end{itemize}
+\newpage
+\subsubsection{Plan of the construction}
+Let us briefly outline the strategy of the construction of the stochastic integral $I_t^K = \int_0^t K_sdB_s$ for more general processes $K$: 
+\begin{enumerate}
+\item We have already constructed $\int_0^t K_s dB_s$ when $K$ is an elementary process $K \in \mathcal{E}_B$. 
+\item We will consider a larger class of processes $(K_t)_{t \geq 0}$. Heuristically speaking will it be a class of processes that can be \textit{"nicely"} approximated by elementary processes. Typically $K$ will be in this class if there exists a sequence $K^n$ of elementary processes such that 
+\begin{align*}
+\mathbb{E} \left( \int_0^\infty (K_s-K_s^n)^2ds \right) \to 0, \text{ as } n \to \infty. 
+\end{align*}
+\item When $K$ is in that class, we are going to show that the sequence of martingales $(I_t^{K_n})_{t \geq 0}$ will converge to a limiting process $(I_t)_{t \geq 0}$ that we will define to be $(I_t^K)_{t \geq 0}$ and call it the stochastic integral of $K$ with respect to $B$. 
+\item In the end, we will see that $I^K$ is a continuous martingale, that its quadratic variation is given by $\int_0^t K_s^2 ds$ and if $K$ is a continuous process in that class and $\Delta_n$ is a nested sequence of subdivisions of $[0,t]$ with mesh-size going to zero, then we have 
+\begin{align*}
+I_t^K = \int_0^t K_s dB_s = \lim_{n \to \infty}^\mathbb{P} \sum_{i=0}^{m_n-1} K_{t_i^n} (B_{t_{i+1}^n}- B_{t_i^n}). 
+\end{align*}
+\end{enumerate}
+\subsubsection{The space of continuous martingales that are bounded in $L^2$}
+In order to implement this strategy, let us first describe what notion of convergence of sequences of continuous martingales we will use: We consider the space $\mathcal{M}^2$ of continuous martingales that are started from $0$ and bounded in $L^2$ (i.e. $\sup_{t \geq 0} \mathbb{E}( M_t^2) < \infty$). We then endow this vector space with the scalar product $(M,N):= \mathbb{E}(M_\infty N_\infty)$ for all $M,N \in \mathcal{M}^2$. 
+\begin{rem} For $M \in \mathcal{M}^2$, we always have $M \xrightarrow{t \to \infty} M_\infty$ almost surely and in $L^2$ (because $M$ is bounded in $L^2$). moreover, all of $(M_t)_{t \geq 0}$ can be recovered from $M_\infty$ by 
+\begin{align*}
+M_t = \mathbb{E}( M_\infty \mid \mathcal{F}_t). 
+\end{align*}
+Thus if $(M,M)=0$, then $M_\infty=0$ almost surely,  and therefore $ \forall t \geq 0$, $M_t=\mathbb{E}(M_\infty \mid \mathcal{F}_t)=0$ almost surely, which implies that almost surely $\forall t \geq 0$, $M_t=0$. Hence $(M,N)$ is indeed a scalar product. 
+\end{rem}
+\newpage
+\begin{lem} The space $\mathcal{M}^2$ is a Hilbert space.
+\end{lem}
+\begin{proof}
+We only need to prove that $\mathcal{M}^2$ is complete. Suppose that $(M^n)_{n \in \mathbb{N}}$ is a Cauchy sequence in $\mathcal{M}^2$, i.e. we have 
+\begin{align*}
+\mathbb{E}((M_\infty^n-M_\infty^l)^2) \to 0, \text{ as } n,l \to \infty. \tag{*}
+\end{align*}
+(*) above shows that the sequence $(M_\infty^n)_{n \in \mathbb{N}}$ is Cauchy in $L^2$ but we know that $L^2$ is complete, thus there exists $M_\infty \in L^2$ such that $M_\infty^n \to M_\infty$ in $L^2$ as $n \to \infty$. By properties of conditional expectations this gives
+\begin{align*}
+M_t^n = \mathbb{E}( M_\infty^n \mid \mathcal{F}_t) \xrightarrow[n \to \infty]{L^2} \mathbb{E}(M_\infty \mid \mathcal{F}_t)=:M_t
+\end{align*}
+We have to show that $M:=(M_t)_{t \geq 0}$ is in $\mathcal{M}^2$. Certainly $M$ is a martingale (because its written as a closed martingale), that is bounded in $L^2$, because \begin{align*}
+M_t^2 \leq \mathbb{E}(M_\infty^2 \mid \mathcal{F}_t) \implies \mathbb{E}(M_t^2) \leq \mathbb{E}(M_\infty^2) < \infty.
+\end{align*}
+We thus need to check if $(M_t)_{t \geq 0}$ is continuous. By Doob's $L^2$ inequality we get
+\begin{align*}
+\mathbb{E}[ (\sup_{t \geq 0} (M_t^n-M_t^l))^2] \leq 4 \mathbb{E}((M_\infty^n-M_\infty^l)^2) \xrightarrow{n,l \to \infty} 0. 
+\end{align*}
+Hence there exists a deterministic sequence $n_k \to \infty$ such that 
+\begin{align*}
+\mathbb{E}[(\sup_{t \geq 0} (M_t^{n_k}-M_t^{n_{k+1}}))^2] \leq \frac{1}{8^k},
+\end{align*}
+and consequently by Markov's inequality 
+\begin{align*}
+\mathbb{P}[ (\sup_{t \geq 0} ( M_t^{n_k}-M_t^{n_{k+1}}))^2 \geq 4^{-k}] \leq \frac{1}{2^k}.
+\end{align*}
+Since the above is summable, we get by the Borel-Cantelli lemma that almost surely, for all but finitely many $k$'s, we have 
+\begin{align*}
+\sup_{t \geq 0} | M_t^{n_{k+1}}-M_t^{n_k}| \leq 2^{-k} = \sqrt{4^{-k}}.
+\end{align*}
+This implies that $(M_t^{n_k})_{t \geq 0}$ converges uniformly on $\mathbb{R}_+$ to some continuous function that we call $t \mapsto \tilde{M}_t$. But, since we already know that $M_t^n \to M_t$ in $L^2$, we must have for all $t \geq 0$, $M_t= \tilde{M}_t$ almost surely.  Hence, we can conclude that $(M_t)_{t \geq 0}$ is a continuous martingale that is bounded in $L^2$, and we see that $M^n$ converges to $M$ in $\mathcal{M}^2$ as $n \to \infty$ because:
+\begin{align*}
+(M-M^n,M-M^n)=\mathbb{E}( (M_\infty-M_\infty^n)^2) \to 0 
+\end{align*}
+by the convergence of $M_\infty^n$ to $M_\infty$ in $L^2$. 
+\end{proof}
+\newpage
+\subsubsection{Progressively measurable processes}
+Let us now look more closely at the class of processes that can be nicely approximated by processes in $\mathcal{E}_B$. Note that we want to look at processes $(K_t)_{t \geq 0}$ such that the integral $\int_0^t K_s^2ds$ makes sense,  so that some measurability with respect to time is required to be sure that this integral is a well-defined random variable. 
+\begin{defn} The process $(K_t)_{t \geq 0}$ is said to be progressively measurable with respect to the filtration $( \mathcal{F}_t)_{t \geq 0}$ if there exists a measurable set $E$ of probability $1$, such that for all $t \geq 0$, the map $(s, \omega) \mapsto K_s( \omega)$ defined on $[0,t] \times \Omega$ is measurable with respect to the product $\sigma$-field $\mathcal{B}_{[0,t]} \otimes \mathcal{F}_t.$
+\end{defn}
+\begin{rem} In essence this (cryptic) definition means that at each time $t$, one can look at once at the whole function $s \mapsto K_s$ defined on $[0,t]$ as a random measurable function on $[0,t]$ and this function is $\mathcal{F}_t$ measurable. 
+\end{rem}
+It is easy to see that most adapted processes with some regularity will be progressively measurable as the next Lemma suggests (see exercise sheets):
+\begin{lem} An adapted process that has right-continuous paths with probability $1$ is progressively measurable. An adapted process that has left-continuous paths with probability $1$ is progressively measurable. 
+\end{lem}
+\begin{proof}
+Exercise sheets.
+\end{proof}
+\begin{defn} The set of progressively measurable processes will be denoted by $\mathcal{P}$. We can then define the subset $\mathcal{P}_B$ of $\mathcal{P}$ consisting of progressively measurable processes such that 
+\begin{align*}
+\mathbb{E}\left( \int_0^\infty K_s^2 ds \right) < \infty.
+\end{align*}
+This set is naturally endowed with the scalar product
+\begin{align*}
+(K,K')_B := \mathbb{E} \left( \int_0^\infty K_sK_s' ds \right). 
+\end{align*}
+\end{defn}
+\begin{rem} In Exercise 10.1 we will derive that $\mathcal{P}_B$ is the $L^2$ space on $\Omega \times \mathbb{R}_+$ equipped with the progressive $\sigma$-algebra (10.1.a) and product measure $\mathbb{P} \otimes d \lambda$ (where $\lambda$ denotes the Lebesgue measure), so that in particular $\mathcal{P}_B$ is a Hilbert space. 
+\end{rem}
+\newpage
+We recall from Functional Analysis the following important Proposition:
+\begin{prop} A subspace $M$ of a Hilbert space $H$ is dense in $H$ if and only if $M^\perp = \{0\}$ (i.e. trivial orthogonal complement).
+\end{prop}
+\begin{lem} The subspace $\mathcal{E}_B$ (of $\mathcal{P}_B)$ is dense in the Hilbert space $\mathcal{P}_B$. In other words, for any progressively measurable process in $\mathcal{P}_B$, one can find a sequence of elementary processes $K^n$ in $\mathcal{E}_B$ such that 
+\begin{align*}
+\lim_{n \to \infty} \mathbb{E} \left( \int_0^\infty (K_s-K_s^n)^2 ds \right)=0. 
+\end{align*}
+\end{lem}
+\begin{proof}
+It suffices to show that a process $K$ in $\mathcal{P}_B$ that is orthogonal to $\mathcal{E}_B$ is necessarily equal to $0$, i.e. for all $\tilde{K} \in \mathcal{E}_B$ we have 
+\begin{align*}
+(K,\tilde{K})_B=0. \tag{*}
+\end{align*}
+Let us first note that by Cauchy-Schwarz inequality, for each $t \geq 0$, the random variable $X_t:= \int_0^t K_sds$ is in $L^1$, thus we can choose $t \mapsto X_t$ to be continuous almost surely, moreover it then has finite variation because $X$ is the difference of the non-decreasing integral of $K1_{K >0}$ and of $-K1_{K < 0}$. 
+\\\\
+From the orthogonality condition (*) we get that for all $a <b$ and for all $Y_a \in L^2( \mathcal{F}_a)$, the process $\tilde{K}_t:=(Y_a 1_{t \in (a,b]})_{t \geq 0}$ is in $\mathcal{E}_B$ and thus orthogonal to $K \in \mathcal{P}_B$, which by (*) translates to 
+\begin{align*}
+(K,\tilde{K})_B=\mathbb{E}( Y_a \int_a^b K_sds)=\mathbb{E}(Y_a (X_b-X_a))\overset{(*)}=0 \\
+\implies \mathbb{E}(X_b \mid \mathcal{F}_a)= X_a
+\end{align*}
+So $(X_t)_{t \geq 0}$ is a continuous martingale started from $0$ and its of bounded variation, we know that this implies that $t \mapsto X_t$ is identically $0$. Hence, $K$ itself is equal to $0$. 
+\end{proof}
+\newpage
+\subsubsection{Definition of the stochastic integral}
+With the previous Lemma at hand we are now ready to define the stochastic integral $I(K)$ of a progressively measurable process $K \in \mathcal{P}_B$ with respect to $B$, where $B$ is a Brownian motion. 
+\begin{itemize}
+\item We first consider any sequence $K^n$ of elementary processes in $\mathcal{E}_B$ that converges to $K$ in $\mathcal{P}_B$ (this is guaranteed to work by the previous Lemma, i.e. $\mathcal{E}_B$ is dense in $\mathcal{P}_B$).
+\item The sequence $(K^n)_{n \in \mathbb{N}}$ is then Cauchy with respect to the norm of $\mathcal{P}_B$ (norm induced by scalar product), because every convergent sequence is Cauchy, i.e. we have 
+\begin{align*}
+\mathbb{E}\left( \int_0^\infty (K_s^n-K_s^l)^2 ds \right) \xrightarrow{n,l \to \infty} 0.
+\end{align*}
+This implies that the sequence $I(K^n)$ is Cauchy in $\mathcal{M}^2$ because we know that the norm of $I(K^n)-I(K^l)$ in $\mathcal{M}^2$ is equal to the distance between $K^n$ and $K^l$ in $\mathcal{P}_B$. Recall that we have shown this isometry:
+\begin{align*}
+\mathbb{E}((I_\infty^{K_n}-I_\infty^{K_l})^2) = \mathbb{E}((I_\infty^{K_n-K_l})^2) = \mathbb{E}\left( \int_0^\infty (K_s^n-K_s^l)^2ds\right) \xrightarrow{n,l \to \infty} 0.
+\end{align*}
+\begin{itemize}
+\item Notice that since $(K^n)_{n \in \mathbb{N}}$ is a sequence of elementary processes in $\mathcal{E}_B$ we know already how to define the stochastic integral for such processes $(I_t^{K_n}= \int_0^t K_s^n dB_s)_{t \geq 0}$ and $I^{K_n}$ is a continuous martingale. 
+\end{itemize}
+\item The space $\mathcal{M}^2$ is complete (it is in fact a Hilbert space), so there exists a continuous martingale $I(K)$ in $\mathcal{M}^2$ such that $I(K^n) \to I(K)$ in this space.
+\item We note that the continuous martingale $I(K)$ does not depend on our choice of sequence $(K^n)_{n \in \mathbb{N}}$ we did begin with in our first step to approximate $K$ in $\mathcal{P}_B$. Indeed, if $(\tilde{K}^n)_{n \in \mathbb{N}}$ is another such sequence, then $I(K^n-\tilde{K}^n)$ does converge to $0$ in $\mathcal{M}^2$ by using again the aforementioned isometry. 
+\end{itemize}
+\begin{defn} We call this process $I(K)$ the stochastic integral of $K$ with respect to $B$ and we will denote it by
+\begin{align*}
+I_t^K := \int_0^t K_sdB_s.
+\end{align*}
+\end{defn}
+\begin{rem} A more compact and equivalent way to summarize this construction is to say that $K \mapsto I(K)$ is an isometry from the set $\mathcal{E}_B$ into its image in $\mathcal{M}^2$, i.e. $\|I(K)\|_{\mathcal{M}^2} = \| K\|_B$. The extension of this map to $\mathcal{P}_B= \overline{\mathcal{E}}_B$ is the map $K \mapsto I(K)$. 
+\end{rem}
+\newpage
+\subsection{Basic properties of stochastic integrals}
+We now list some of the basic properties of the stochastic integral with respect to Brownian motion. The proofs of these facts often proceeds as follows: First one checks directly that it holds in the case where the process $K$ is an elementary process, and one then extends the result to the case $K \in \mathcal{P}_B$ by continuity. 
+\begin{itemize}
+\item \textbf{An isometry:} Let $K \in \mathcal{P}_B$ and $K^n$ be a sequence of elementary processes that approximates $K$. We know, since $K^n$ is elementary that we have 
+\begin{align*}
+\mathbb{E}[(I(K^n)_\infty)^2] \overset{\text{def}}= \mathbb{E}\left[ \left( \int_0^\infty K_s^n dB_s \right)^2 \right] = \mathbb{E} \left( \int_0^\infty (K_s^n)^2 ds \right). \tag{*}
+\end{align*}
+But we also know that $I(K^n)_\infty \to I(K)_\infty$ in $L^2$ (because $I(K^n) \to I(K)$ in $\mathcal{M}^2)$. But on the other hand, by the very definition of convergence of $K^n$ to $K$ in $\mathcal{P}_B$, we know that 
+\begin{align*}
+\int_0^\infty (K_s^n)^2 ds \xrightarrow[n \to \infty]{L^1} \int_0^\infty K_s^2 ds. 
+\end{align*}
+Thus by taking the limit as $n \to \infty$ in (*) above we obtain 
+\begin{align*}
+\mathbb{E}\left[\left( \int_0^\infty K_s dB_s \right)^2  \right] = \mathbb{E} \left( \int_0^\infty K_s^2 ds \right). 
+\end{align*}
+\item \textbf{The quadratic variation of $I(K)$:} The quadratic variation of the continuous martingale $I(K)$ is the process $t \mapsto \int_0^tK_s^2 ds$. Indeed, one checks it first directly in the case for elementary processes. Then, using the same approximation methods as above we see that 
+\begin{align*}
+(I(K^n)_\infty)^2 - \int_0^\infty (K_s^n)^2 ds \xrightarrow[n \to \infty]{L^1} (I(K)_\infty)^2- \int_0^\infty K_s^2 ds 
+\end{align*}
+The conditional expectations with respect to $\mathcal{F}_t$ do therefore converge as well. But the conditional expectation of the LHS (LHS we know is a martingale) is equal to $(I(K^n)_t)^2- \int_0^t(K_s^n)^2 ds.$ With the help of Doob's $L^2$-inequality 
+\begin{align*}
+\sup_{t \geq 0} \mathbb{E}\left[ \left( I(K^n)_t-I(K)_t\right)^2 \right] \leq \mathbb{E} \left[ \sup_{t \geq 0 }  \left( I(K^n)_t-I(K)_t\right)^2 \right]\\
+\leq 4 \mathbb{E} \left[ (I(K^n)_\infty - I(K)_\infty)^2\right] \xrightarrow{n \to \infty} 0, 
+\end{align*}
+which shows that $(I(K^n)_t)^2 \to (I(K)_t)^2$ in $L^1$ as $n \to \infty$. Similarly one shows that $\int_0^t (K_s^n)^2 ds \to \int_0^t K_s^2 ds$ in $L^1$. Hence we have shown that \begin{align*}
+(I(K^n)_t)^2 - \int_0^t (K_s^n)^2 ds \xrightarrow[n \to \infty]{L^1} (I(K)_t)^2 - \int_0^t K_s^2 ds =:M_t
+\end{align*}
+which shows that $M_t$ is indeed a continuous martingale. 
+\newpage
+\item \textbf{Approximations of stochastic integrals:} Suppose that $K$ is a \textbf{continuous} process in $\mathcal{P}_B$. We then claim that for all $t \geq 0$, if $\Delta_n$ is a nested sequence of subdivisions of $[0,t]$ with $|\Delta_n| \to 0$, then 
+\begin{align*}
+\sum_{i=0}^{m_n-1} K_{t_i^n} ( B_{t_{i+1}^n}-B_{t_i^n}) \xrightarrow[n \to \infty]{L^2} \int_0^t K_s dB_s
+\end{align*}
+\begin{proof}
+Let us suppose first that $|K_t| \leq C$ almost surely for all $t \geq 0$. We define $\tilde{K}_s:= K_s 1_{s \leq t}$, then we know that $\tilde{K}$ is still in $\mathcal{P}_B$ and we have \begin{align*}
+\int_0^\infty \tilde{K}_s dB_s = \int_0^t K_s dB_s.
+\end{align*} We also define for all $n \in \mathbb{N}$ \begin{align*}
+\tilde{K}_s^n := \sum_{i=0}^{m_n-1} K_{t_i^n} 1_{s \in (t_i^n, t_{i+1}^n]}
+\end{align*}
+and we observe that 
+\begin{align*}
+\int_0^\infty \tilde{K}_s^n dB_s = \int_0^t \tilde{K}_s^n dB_s = \sum_{i=0}^{m_n-1} K_{t_i^n} (B_{t_{i+1}^n}-B_{t_i^n}),
+\end{align*}
+so in order to establish the claim it suffices to show that $\tilde{K}^n \to \tilde{K}$ in $\mathcal{P}_B$, since we know that this implies in particular the $L^2$ convergence of the integrals. We notice that by the continuity of $K$ we get that 
+\begin{align*}
+|\tilde{K}_s^n-\tilde{K}_s | \xrightarrow[n \to \infty]{a.s} 0
+\end{align*}
+but also
+\begin{align*}
+|\tilde{K}_s^n-\tilde{K}_s |^2 \leq (2C)^2 1_{s \leq t},
+\end{align*}
+thus by dominated convergence we get that  \begin{align*}
+\mathbb{E} \left( \int_0^\infty |\tilde{K}_s^n-\tilde{K}_s|^2ds \right) \overset{n \to \infty}\to 0
+\end{align*}
+which establishes that $\tilde{K}^n \to \tilde{K}$ in $\mathcal{P}_B$. 
+\end{proof}
+\end{itemize}
+\begin{rem} It is possible to remove the condition of boundedness in the previous proof, however, we will skip that here. 
+\end{rem}
+\newpage
+\subsection{Generalization to stochastic integrals with respect to local martingales}
+\subsubsection{The $L^2$ theory of stochastic integrals with respect to a continuous martingale} Let us now consider a continuous martingale $(M_t)_{t \geq 0}$ in our filtered probability space. We want to define the stochastic integral of processes $K$ with respect to $M$, i.e., we want to define the continuous martingale $t \mapsto \int_0^t K_s dM_s$.\\
+\\
+In some sense, what we are now going to do is to use the very same idea, modulo the fact that time plays now a different role, because of the time-change that is due to the quadratic variation $A$ of $M$. To start with, we introduce a new set $\mathcal{E}_M$ of elementary processes as follows: These are elementary processes in $\mathcal{E}$, i.e. of the form 
+\begin{align*}
+K_t = \sum_{j=0}^{m-1} K_{a_j} 1_{t \in (a_j, a_{j+1}]},
+\end{align*}
+where $0 \leq a_0 < \dots < a_m$ and each $K_{a_j}$ is an $\mathcal{F}_{a_j}$-measurable random variable such that for each $j$
+\begin{align*}
+\mathbb{E}((K_{a_j})^2(A_{a_{j+1}}-A_{a_j})) < \infty. 
+\end{align*}
+Note that when $M$ is a Brownian motion, then this is exactly the class of elementary processes $\mathcal{E}_B$, because if $M=B$, then $A=t$ and $t_{a_{j+1}}-t_{a_j}=a_{j+1}-a_j$. \\
+\\
+Next, for each $K \in \mathcal{E}_M$,  one can define the process
+\begin{align*}
+I(K)_t := \int_0^t K_s dM_s:= \sum_{j=0}^{m-1} K_{a_j} ( M_{t \wedge a_{j+1}}-M_{t \wedge a_j}),
+\end{align*}
+the definition of $\mathcal{E}_M$ then guarantees us that the above is an $L^2$ martingale. We then define the set $\mathcal{P}_M$ of progressively measurable processes such that 
+\begin{align*}
+\mathbb{E}\left( \int_0^\infty K_s^2 dA_s \right).
+\end{align*}
+This space can be viewed as an $L^2$ space, when endowed with the scalar product 
+\begin{align*}
+(K,K')_M:= \mathbb{E} \left( \int_0^\infty K_sK_s' dA_s \right).
+\end{align*}
+\newpage
+Now everything is exactly the same as in the construction we've already done. We keep the same space $\mathcal{M}^2$ of continuous martingales started from $0$ that are bounded in $L^2$, we get
+\begin{itemize}
+\item The mapping $K \mapsto I(K)$ is an isometry from $\mathcal{E}_M$ into its image in $\mathcal{M}^2.$
+\begin{itemize}
+\item In other words, $\|I(K)\|_{\mathcal{M}^2} = \|K\|_M$ or written out 
+\begin{align*}
+\mathbb{E}\left[ \left( \int_0^\infty K_s d M_s \right)^2 \right] = \mathbb{E}\left( \int_0^\infty K_s^2 dA_s \right). 
+\end{align*}
+\end{itemize}
+\item The set $\mathcal{E}_M$ is dense in the Hilbert space $\mathcal{P}_M$. 
+\item The mapping $K \mapsto I(K)$ can therefore be extended in a unique way into an isometry from $\mathcal{P}_M$ into the space $\mathcal{M}^2$.  
+\end{itemize}
+Let us now list the basic properties of these stochastic integrals:
+\begin{prop} Suppose that $M$ is a continuous martingale and that $K \in \mathcal{P}_M$ and $K' \in \mathcal{P}_M$, then: \begin{enumerate}
+\item The quadratic variation of the martingale $( \int_0^t K_s dM_s)_{t \geq 0}$ is the process $\int_0^t K_s^2 d \langle M \rangle_s.$
+\item The cross-variation of the two martingales $( \int_0^t K_s dM_s)_{t \geq 0}$ and $(\int_0^t K_s' dM_s)_{t \geq 0}$ is the process $\int_0^t K_s K_s' d\langle M \rangle_s.$ 
+\item If $T$ denotes a stopping time, then if $\tilde{K}_t = K_t 1 _{t < T}$, one has for all $t\geq 0$,
+\begin{align*}
+\int_0^t \tilde{K}_s dM_s = \int_0^{t \wedge T} K_s dM_s = \int_0^t K_s dM_s^T. 
+\end{align*}
+\item If $K$ has almost surely left-continuous paths, and if $( \Delta_n)_{n \geq 0}$ denotes a nested sequence of subdivisions of $[0,t]$ with $|\Delta_n| \to 0$, then 
+\begin{align*}
+\sum_{i=0}^{m_n-1} K_{t_i^n} (M_{t_{i+1}^n}-M_{t_i^n}) \xrightarrow[n \to \infty]{ \mathbb{P}} \int_0^t K_s dM_s
+\end{align*}
+\end{enumerate}
+\end{prop}
+\begin{proof}
+The proofs are essentially word for word the same as for Brownian motion. 
+\end{proof}
+\newpage
+\subsubsection{Stochastic integrals with respect to a local martingale}
+Item (2) in the previous proposition enables us to directly generalize the definition of stochastic integrals to the following setting:
+\begin{itemize}
+\item The process $M$ is a local martingale (and one denotes its quadratic variation by $(A_t)_{t \geq 0})$. 
+\item The process $K$ is a progressively measurable process such that almost surely, for all $t \geq 0$, $\int_0^t K_s^2 dA_s < \infty$. 
+\end{itemize}
+Indeed, under these conditions, one can define $( \tilde{M}_t = M_t-M_0)_{t \geq 0}$ which will be a local martingale started from $0$ and for all $k$, we define the sequence of stopping times 
+\begin{align*}
+T_k:= \inf \{ t > 0: t=k \text{ or } \int_0^t K_s^2 dA_s = k \text{ or } |\tilde{M}_t| =k \}. 
+\end{align*}
+One notes that almost surely, $T_k \nearrow \infty$ as $k \to \infty$, because $\tilde{M}$ is continuous and $\int_0^t K_s^2 d A_s$ is non-decreasing and finite. Thus the stopped process $\tilde{M}^{T_k}$ is then a proper martingale and the process $K$ is in $\mathcal{P}_{\tilde{M}^{T_k}}$.
+\\\\
+Then, one can define the stochastic integral of $K$ with respect to the martingale $\tilde{M}^{T_k}$ and check that for each given $t$ 
+\begin{align*}
+\int_0^t K_s d \tilde{M}_s^{T_k}
+\end{align*}
+is almost surely the same for all integer values of $k$ such that $t \leq T_k$. We define this value to be $\int_0^t K_s dM_s$, and one can then check that this process is a local martingale started from $0$, because for each $k$, this process stopped at $T_k$ is a martingale. 
+\\\\
+Finally, one can check that all the items in the previous stated proposition still remains valid in this most general setting. 
+\end{document}

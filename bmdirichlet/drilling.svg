@@ -1,0 +1,119 @@
+<?xml version="1.1" encoding="windows-1252"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:latexdraw="http://latexdraw.sourceforge.net/namespaces/latexdraw"
+    version="1.1" baseProfile="full">
+    <g>
+        <g latexdraw:type="circle" id="id10199042">
+            <circle cx="420.0" cy="300.0" r="159.0"
+                latexdraw:borderPos="outer" stroke-width="2.0"
+                stroke="black" fill="none"/>
+        </g>
+        <g latexdraw:type="dot" id="id5178648" latexdraw:size="6.0"
+            latexdraw:dotShape="*" latexdraw:position="420.0 300.0">
+            <path
+                d="M 422.7692307692308 300.0 C 422.7692307692308 301.52940392260837 421.52940392260837 302.7692307692308 420.0 302.7692307692308 C 418.47059607739163 302.7692307692308 417.2307692307692 301.52940392260837 417.2307692307692 300.0 C 417.2307692307692 298.47059607739163 418.47059607739163 297.2307692307692 420.0 297.2307692307692 C 421.52940392260837 297.2307692307692 422.7692307692308 298.47059607739163 422.7692307692308 300.0 z "
+                fill="black" stroke-linecap="square"
+                stroke-linejoin="butt" stroke-width="0.375"
+                stroke-miterlimit="10.0" stroke-dashoffset="0.0" stroke="black"/>
+        </g>
+        <g latexdraw:type="joinedLines" id="id7002306">
+            <polyline points="420.0,300.0 420.0,80.0 "
+                stroke-width="2.0" stroke="black" stroke-linecap="round"
+                stroke-dasharray="1, 7.291666666666667" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="text" id="id24089918" fill="black" latexdraw:position="bl">
+            <text x="440.0" y="320.0">$0$</text>
+        </g>
+        <g latexdraw:type="bezierCurve" id="id17569006">
+            <path
+                d="M 260.0 300.0 C 260.0 360.0 580.0 360.0 580.0 300.0 "
+                stroke-width="2.0" stroke="black" fill="none" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="joinedLines" id="id8068157">
+            <polyline points="460.0,200.0 460.0,80.0 "
+                stroke-width="2.0" stroke="black" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="joinedLines" id="id22121682">
+            <polyline points="380.0,200.0 380.0,80.0 "
+                stroke-width="2.0" stroke="black" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="bezierCurve" id="id11295173">
+            <path
+                d="M 380.0 200.0 C 380.0 180.0 460.0 180.0 460.0 200.0 "
+                stroke-width="2.0" stroke="black" fill="none"
+                stroke-dasharray="8.819444444444445, 5.291666666666667" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="bezierCurve" id="id31760530">
+            <path
+                d="M 380.0 200.0 C 380.0 220.0 460.0 220.0 460.0 200.0 "
+                stroke-width="2.0" stroke="black" fill="none" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="joinedLines" id="id12247685">
+            <polyline points="420.0,100.0 460.0,120.0 "
+                stroke-width="2.0" stroke="black"
+                latexdraw:rotationAngle="0.0" marker-end="url(#arrow1-12247685)"/>
+        </g>
+        <g latexdraw:type="text" id="id30496882" fill="black" latexdraw:position="bl">
+            <text x="440.0" y="100.0">$r_0$</text>
+        </g>
+        <g latexdraw:type="joinedLines" id="id23383245">
+            <polyline points="440.0,200.0 440.0,260.0 440.0,260.0 "
+                stroke-width="2.0" stroke="#ff9933" fill="none" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="joinedLines" id="id32916668">
+            <polyline points="400.0,200.0 400.0,260.0 "
+                stroke-width="2.0" stroke="#ff9900" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="bezierCurve" id="id13723566">
+            <path
+                d="M 400.0 260.0 C 400.0 240.0 440.0 240.0 440.0 260.0 "
+                stroke-width="2.0" stroke="#ff9933" fill="none"
+                stroke-dasharray="8.819444444444445, 5.291666666666667" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="bezierCurve" id="id2419618">
+            <path
+                d="M 400.0 260.0 C 400.0 280.0 440.0 280.0 440.0 260.0 "
+                stroke-width="2.0" stroke="#ff9933" fill="none" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="bezierCurve" id="id31347669">
+            <path
+                d="M 400.0 200.0 C 400.0 180.0 440.0 180.0 440.0 200.0 "
+                stroke-width="2.0" stroke="#ff9933" fill="none"
+                stroke-dasharray="8.819444444444445, 5.291666666666667" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="bezierCurve" id="id24565456">
+            <path
+                d="M 400.0 200.0 C 400.0 220.0 440.0 220.0 440.0 200.0 "
+                stroke-width="2.0" stroke="#ff9900" fill="none" latexdraw:rotationAngle="0.0"/>
+        </g>
+    </g>
+    <defs>
+        <marker overflow="visible" orient="auto" id="arrow1-12247685">
+            <path
+                d="M 0.0 0.0 L -4.652083333333334 1.6614583333333335 L -4.652083333333334 0.0 L -4.652083333333334 -1.6614583333333335 z "
+                latexdraw:arrSizeNum="2.0" fill="black"/>
+        </marker>
+    </defs>
+    <metadata>
+        <latexdraw:metadata>
+            <latexdraw:latexIncludes>\usepackage{amssymb}&#xd;
+</latexdraw:latexIncludes>
+            <latexdraw:displayXScale>true</latexdraw:displayXScale>
+            <latexdraw:displayYScale>true</latexdraw:displayYScale>
+            <latexdraw:unit>CM</latexdraw:unit>
+            <latexdraw:zoom>1.0</latexdraw:zoom>
+            <latexdraw:magneticGridStyle>CUSTOMISED</latexdraw:magneticGridStyle>
+            <latexdraw:gridGap>20</latexdraw:gridGap>
+            <latexdraw:magneticGrid>true</latexdraw:magneticGrid>
+            <latexdraw:version>3.3.8</latexdraw:version>
+            <latexdraw:size>
+                <latexdraw:width>1034</latexdraw:width>
+                <latexdraw:height>827</latexdraw:height>
+            </latexdraw:size>
+            <latexdraw:position>
+                <latexdraw:x>44.0</latexdraw:x>
+                <latexdraw:y>122.0</latexdraw:y>
+            </latexdraw:position>
+        </latexdraw:metadata>
+    </metadata>
+</svg>

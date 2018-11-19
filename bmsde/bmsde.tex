@@ -1,0 +1,231 @@
+\documentclass[../mainfile.tex]{subfiles}
+
+
+
+\begin{document}
+\section{Stochastic Differential Equations}
+\subsection{Motivation and general remarks}
+Let us first informally describe stochastic differential equations (SDE), first in $1$ dimension. We are given two function $\sigma: \mathbb{R} \to \mathbb{R}$ and $b: \mathbb{R} \to \mathbb{R}$ and a starting point $x \in \mathbb{R}$. It is then our goal to find a process $(X_t)_{t \geq 0}$ which is a semimartingale and such that for all $ t \geq 0$
+\begin{align*}
+X_t= x + \int_0^t \sigma (X_s) d B_s + \int_0^t b(X_s)ds
+\end{align*}
+where $B$ is a $1$-dimensional Brownian motion. 
+\\\\
+More generally in dimension $d$, we are given $\sigma: \mathbb{R}^d \to \mathbb{R}^{d \times d}$ (i.e. $\sigma$ takes values in the space of $d \times d$ matrices), and $b: \mathbb{R}^d \to \mathbb{R}^d$ and $x \in \mathbb{R}^d$, then the SDE can be formally written as 
+\begin{align*}
+dX_t^i = \sum_{j=1}^d \sigma_{i,j}(X_s)dB_s^j + b_i(X_s)ds, \ 1 \leq i \leq d
+\end{align*}
+or more compactly
+\begin{align*}
+X_t = x + \int_0^t \sigma(X_s) d B_s + \int_0^t b(X_s)ds \\
+\iff dX_t = \sigma(X_t)dB_t + b(X_t)dt
+\end{align*}
+where $B$ is a $d$-dimensional Brownian motion.
+\begin{rem} We notice that when $\sigma=0$, an SDE is an ODE. 
+\end{rem}
+As opposed to the case of ordinary differential equations (ODE), it turns out that there are different conceptual notions of solutions of such stochastic differential equations (we will call them \textbf{weak} and \textbf{strong} - not to be confused with weak solutions in PDEs). These notions correspond to the fact that one may be allowed to choose the probability space that one defines the process $X$ and $B$ in, or that one is already given the probability space and the Brownian motion $B$ and we have to find $X$ in said probability space. 
+\newpage
+Let us briefly recall two main families of results for ODEs:
+\begin{itemize}
+\item There is the Picard-Lindelölf theorem. This theorem shows existence and uniqueness of the solutions to an ODE $y'=b(y)$ with $y(0)=y_0$ when $b$ is a bounded Lipschitz function. 
+\begin{itemize}
+\item Existence part is derived via Picard's iteration which provides a constructive existence proof.
+\item Uniqueness part follows from a fixed point argument.
+\end{itemize}
+When $b$ is not bounded and only locally Lipschitz, we still have existence and uniqueness of local solutions.
+\item There is the Peano Theorem (or the stronger Carathéodory Theorem). It shows existence (but \textbf{not uniqueness}) of solutions to an ODE $y'=b(y)$ under weaker assumptions for $b$, i.e. boundedness and continuity of $b$ ensures existence of solutions. Moreoever if $b$ is not bounded we still have local existence of solutions. 
+\end{itemize}
+These two types of theorems have analogues for Stochastic Differential Equations. The analogue of the Picard-Lindelöf approach will give rise to the existence and uniqueness of \textbf{strong} solutions, i.e. of solutions that are fully determined by the Brownian motion $B$ in the equation and no other randomness is involved. 
+\\\\
+The analog of the Peano approach will use tightness in the space of probability measures on continuous functions (like when discussed Donsker's Theorem). It therefore constructs a probability space (with a probability measure $\mathbb{P}$) on which there exists a solution,  by defining $\mathbb{P}$ to be the weak limit of probability measures. This will give rise to existence of so called \textbf{weak} solutions.
+\newpage
+\subsection{Existence and uniqueness of strong solutions}
+\begin{defn} We say that a function $f$ defined on $\mathbb{R}^d$ (or on $\mathbb{R}^{d \times d})$ is $K$-Lipschitz (continuous) if for all $x,y$ 
+\begin{align*}
+\| f(x)-f(y)\| \leq K \|x-y\|
+\end{align*}
+where $K \geq 0$ is some constant and $\| \cdot \|$ denotes the Euclidean norm on $\mathbb{R}^d$ or on $\mathbb{R}^{d \times d}$. We also say that if a function $f$ is $K$-Lipschitz continuous just that it is Lipschitz.
+\end{defn}
+\begin{thm}[Globally Lipschitz: Existence and uniqueness of strong solutions] Let us suppose that we are given a filtered probability space $(\Omega, \mathcal{F}, (\mathcal{F}_t)_{t \geq 0}, \mathbb{P})$ and a $d$-dimensional Brownian motion $(B_t)_{t \geq 0}$ in this filtration. Suppose that the functions $\sigma$ and $b$ are Lipschitz functions with values in $\mathbb{R}^{d \times d}$ and $\mathbb{R}^d$ respectively. Then:
+\begin{itemize}
+\item For all $x_0 \in \mathbb{R}^d$, there exists a continuous semimartingale $X$ such that for all $t \geq 0$, 
+\begin{align*}
+X_t = x_0 + \int_0^t b(X_s)ds + \int_0^t \sigma(X_s)dB_s.
+\end{align*}
+\item This process $(X_t)_{t \geq 0}$ is the unique one with these properties. 
+\end{itemize}
+\end{thm}
+The proof of the theorem will be reminiscent of the proof of the Picard-Lindelöf Theorem for ODEs. Let us briefly recall the following two easy lemmas which will be the building blocks in that proof:
+\begin{lem}[Gronwall's lemma] If $f$ is a bounded real-valued measurable function on some interval $[0,T]$ such that there exists $c$ such that for all $t \leq T$, $|f(t)| \leq c \int_0^t|f(s)|ds$, then $f=0$ on $[0,T]$.
+\end{lem}
+\begin{proof} We iterate the condition $|f(t)| \leq c \int_0^t |f(s)|ds$ to obtain
+\begin{align*}
+|f(t)| \leq c \max (|f|) t \implies |f(t)| \leq c^2 \max (|f|) \frac{t^2}{2} \overset{\dots}\implies |f(t)| \leq \max(|f|) \frac{t^nc^n	}{n!}
+\end{align*}
+The last quantity converges to $0$ as $n \to \infty$. 
+\end{proof}
+\begin{lem}[Fixed point of a contraction, slight variation] Suppose that $F$ is a continuous function from some complete metric space $(E,d)$ into itself, such that there exists $n >0$ such that for all $x,y \in E$, d$(F^n(x), F^n(y)) \leq d(x,y)/2$. Then $F$ has a unique fixed point $z$ in $E$ i.e. $F(z)=z$. (Here $F^n$ denotes the $n$-th iterate of $F$, i.e. $F^n = F \circ F^{n-1}$). 
+\end{lem}
+\newpage
+\begin{proof}
+Choose some $x \in E$ and consider the sequence $x_k = F^{n_k}(x)$. We then easily obtain by the contraction assumption that 
+\begin{align*}
+d(x_k, x_{k+1}) \leq 2^{-k} d(x_0,x_1) \text{ and } d(x_k, F(x_k)) \leq 2^{-k} d(x,F(x)),
+\end{align*}
+So we see that $(x_k)_{k \geq 0}$ is a Cauchy sequence in $E$ and since $E$ is complete $x_k \to x_\infty \in E$, but we also have since $F$ is continuous that $(F(x_k))_{k \to 0 }$ converges to the same point, i.e. $\lim_{k \to \infty} F(x_k)=F(x_\infty)=x_\infty$. 
+\\\\
+Assume now that $x'\in E$ is another fixed point of $F$, then we have 
+\begin{align*}
+d(x',x_\infty)= d(F^n(x'),F^n(x_\infty)) \leq \frac{d(x',x_\infty)}{2}
+\end{align*}
+which can only hold when $d(x',x_\infty)=0$, i.e. $x'=x_\infty$. 
+\end{proof}
+\begin{proof}[Proof of theorem] We will write out the proof in the case of $d=1$, but the proof for general $d$ is exactly the same. We also notice that for $T \geq 0$ fixed, it suffices to prove existence and uniqueness of a process $(X_t)_{t \in [0,T]}$ that solves the SDE on the time-interval $[0,T]$. 
+\\
+\\
+\textbf{Uniqueness (Gronwall):} Suppose that $X$ and $Y$ are two solutions, let $\tau_n$ denote the first time at which either $|X|$ or $|Y|$ reach $n$, and let us prove that the stopped process $X^{\tau_n}$ and $Y^{\tau_n}$ defined on $[0,T]$ are almost surely equal, if we prove this for all $n$ then this clearly implies that $X=Y$ on $[0,T]$. For $t \leq T$ let us denote $t_n= \min(t, \tau_n)$ (just to make notation easier). 
+\\
+Recall that the convexity of $t \mapsto t^p$ for $p \geq 1$ implies $\|f+g\|_p^p \leq 2^{p-1} (\|f\|_p^p + \|g\|_p^p)$, or equivalently for RV $\mathbb{E}((X+Y)^2) \leq 2 (\mathbb{E}(X^2) +\mathbb{E}(Y^2))$. ($p=2$)
+\begin{align*}
+\mathbb{E}[(X_t^{\tau_n}-Y_t^{\tau_n})^2] &=\mathbb{E} \left[ \left( \int_0^{t_n}( \sigma(X_s)- \sigma(Y_s))dB_s + \int_0^{t_n} (b(X_s)-b(Y_s))ds \right)^2 \right] \\
+& \leq 2 \mathbb{E}\left[ \left( \int_0^{t_n}( \sigma(X_s)-\sigma(Y_s)) dB_s\right)^2\right] + 2 \mathbb{E} \left[ \left( \int_0^{t_n} (b(X_s)-b(Y_s))ds\right)^2\right] \\
+ &\overset{\text{Isometry}}{\leq} 2 \mathbb{E}\left[ \int_0^{t_n}( \sigma(X_s)-\sigma(Y_s))^2 ds\right] + 2 \mathbb{E} \left[ \left( \int_0^{t_n} |b(X_s)-b(Y_s)| ds \right)^2 \right] \\
+& \overset{\text{Lipschitz}}\leq 2K^2 \mathbb{E} \left[ \int_0^{t_n} (X_s-Y_s)^2 ds \right] + 2K^2 \mathbb{E}\left[ \left( \int_0^{t_n} |X_s-Y_s| ds \right)^2 \right] \\
+& \overset{\text{Hölder}}\leq 2K^2(1+T) \mathbb{E}\left[ \int_0^{t_n} (X_s-Y_s)^2 ds\right] \\
+& \leq 2K^2 (1+T) \mathbb{E} \left[ \int_0^t( X_s^{\tau_n}- Y_s^{\tau_n})^2 ds\right] = C \int_0^t \mathbb{E}[(X_s^{\tau_n}-Y_s^{\tau_n})^2] ds 
+\end{align*}
+\newpage
+Hence if we write $f(t) = \mathbb{E}((X_t^{\tau_n}-Y_t^{\tau_n})^2)$, then we can apply Gronwall's lemma to conclude that $f=0$ which concludes the uniqueness part of the proof.
+\\\\
+\textbf{Existence (Picard's iteration, fixed point of contraction):} We work on the set $E:= \{$continuous adapted process $Y:[0,T] \to \mathbb{R}^d$,  with $Y(0)=x_0$ and $\mathbb{E}( \sup_{[0,T]} |Y_t|^2) < \infty \}$. We equip this space with the metric $d(X,Y):= \mathbb{E}( \sup_{s \in [0,T]} (X_s-Y_s)^2)$, then $(E,d)$ is a complete metric space (seen similar arguments in class already to prove this). 
+\\\\
+Let us define $F: E \to E$ by  
+\begin{align*}
+F(Y)_t:= x_0 + \int_0^t \sigma (Y_s) d B_s + \int_0^t b(Y_s)ds.
+\end{align*}
+Also for $t_0 \leq T$, we denote $d_{t_0} (X,Y)= \mathbb{E}( \sup_{s \leq t_0}(X_s-Y_s)^2).$ Almost the same arguments as used in the uniqueness part (except that one uses also Doob's inequality) shows that when $X,Y$ are in $E$, then  
+\begin{align*}
+d_{t_0}(F(X),F(Y)) & = \mathbb{E}[ \sup_{t \leq t_0} (F(X)_t-F(Y)_t)^2] \\
+& \leq 2 \mathbb{E} \left[ \left( \sup_{t \leq t_0} \int_0^t( \sigma (X_s)- \sigma(Y_s))dB_s\right)^2 \right]+ 2 \mathbb{E} \left[ \left( \sup_{t \leq t_0} \int_0^t( b (X_s)- b(Y_s))ds\right)^2 \right] \\
+& \overset{\text{Doob}}\leq 2 \cdot 4 \mathbb{E}\left[ \left( \int_0^{t_0} ( \sigma(X_s)-\sigma(Y_s)) d B_s\right)^2 \right] + 2 \mathbb{E} \left[ \left( \int_0^{t_0} |b(X_s)-b(Y_s)|ds\right)^2 \right] \\
+& \leq 8K^2 \mathbb{E}\left[ \int_0^{t_0} (X_s-Y_s)^2ds \right] + 2K^2 \mathbb{E} \left[  \left( \int_0^{t_0} |X_s-Y_s|ds \right)^2 \right] \\
+& \leq 2K^2(4+t_0) \mathbb{E} \left[ \int_0^{t_0} (X_s-Y_s)^2 ds \right]  \\
+& \overset{\text{Tonelli}}\leq 2K^2(4+T) \int_0^{t_0} d_s(X,Y)ds \leq C \int_0^{t_0} d_T(X,Y)ds \\
+& \leq C t_0 d_T(X,Y), \text{ where } C:= 2K^2(4+T)
+\end{align*} 
+So we have shown that for all $t \leq t_0$, we have $d_t(F(X),F(Y)) \leq C t d_T(X,Y)$, and then iteratively (just like in proof of Gronwall's Lemma) we get that for all $n \geq 1$ 
+\begin{align*}
+d_t(F^n(X),F^n(Y)) \leq Ct^n d_T (X,Y)/n!.
+\end{align*}
+So for all $n$ large enough we have $d_T(F^n(X),F^n(Y)) \leq d_T(X,Y)/2$. We conclude by using the fixed-point lemma, that there exists a unique continuous adapted process $(X_t)_{t \in [0,T]}$ such that $F(X)=X$.
+\end{proof}
+\newpage
+\subsection{Survey of some other results on SDEs}
+\subsubsection{Other results obtained via Picard's iteration method}
+Let us now suppose that the conditions on $\sigma$ and $b$ are relaxed to local Lipschitz conditions,  i.e. for all $R>0$, there exists $K_R \geq 0$, such that for all $x,y \in \mathbb{R}^d$ with $\|x\|,\|y\| \leq R$ we have 
+\begin{align*}
+\| \sigma(x)-\sigma(y)\| &\leq K_R\|x-y\|, \\
+\| b(x)-b(y)\| & \leq K_R\|x-y\|.
+\end{align*}
+The following result can be derived using the same ideas as for the globally Lipschitz case, in particular this theorem establishes existence and uniqueness of strong solutions up to a explosion time:
+\begin{thm}[Locally Lipschitz: Existence and uniqueness of strong solutions] Suppose that the functions $\sigma$ and $b$ are locally Lipschitz functions with values in $\mathbb{R}^{d \times d}$ and $\mathbb{R}^d$ respectively, then:
+\begin{itemize}
+\item For all $x_0 \in \mathbb{R}^d$, there exists a stopping time $T \in [0, \infty]$ and an adapted continuous process $X$ such that for all $t \leq T$, 
+\begin{align*}
+X_t = x_0 + \int_0^t b(X_s)ds + \int_0^t \sigma (X_s)dB_s,
+\end{align*}
+and such that almost surely on the event $\{T < \infty\}$, the set $\{X_t, t <T\}$ is not bounded.
+\item If $T'$ and $X'$ is another stopping time and another process with these properties, then $T=T'$ almost surely,  and almost surely $X_t=X_t'$ for all $t \leq T$.
+\end{itemize}
+When $T$ is finite, $T$ is called the explosion time of the solution to the SDE. 
+\end{thm}
+It is also possible to get the uniqueness statement under somewhat weaker assumptions on $\sigma$:
+\begin{thm}[Yamade-Watanabe's pathwise uniqueness] Suppose that $b$ is Lipschitz, and that there exists an increasing function $h: [0, 1] \to \mathbb{R}_+$ with $h(0)=0$ and $\int_0^1 h(x)^{-2}dx= \infty$, such that for all $x$ and $y$,  
+\begin{align*}
+\| \sigma(x)-\sigma(y)\| \leq h(\|x-y\|).
+\end{align*}
+Then, if $X$ and $Y$ are two processes defined on the same filtered probability space (on which one is given a Brownian motion $B$), such that for all $t \geq 0$, 
+\begin{align*}
+X_t = x_0 + \int_0^t b(X_s)ds + \int_0^t \sigma(X_s)dB_s = Y_t
+\end{align*}
+then $X=Y$ almost surely. 
+\end{thm}
+\newpage
+\subsubsection{Tanaka's example} Let us describe an instructive example that illustrates what sort of surprising things can happen when $\sigma$ is not continuous. \\
+\\
+Let us look at the easy case when $d=1$, $b=0$, $x_0=0$ and $\sigma(x)= \text{sgn}(x)=1_{x \geq 0}- 1_{x <0}$. It is our goal to find an adapted process $(X_t)_{t \geq 0}$ started from the origin, such that for all $t \geq 0$ \begin{align*}
+X_t= \int_0^t \text{sgn}(X_s)dB_s,
+\end{align*}
+where $B$ is a $1$-dimensional Brownian motion. 
+\\\\
+Let us make some comments about this situation: 
+\begin{itemize}
+\item Assume that such a process $X$ would exists, then it is a local martingale (since it is a stochastic integral), but we would also have 
+\begin{align*}
+\langle X \rangle_t = \int_0^t ( \text{sgn}(X_s))^2 ds = \int_0^t 1 ds = t
+\end{align*}
+so by Lévy's characterisation, necessarily $X$ is in fact a Brownian motion (in this filtered probability space).
+\item We recall that the zero-set of a Brownian motion $X$ has almost surely zero Lebesgue measure, this is easy to prove because by Fubini we have 
+\begin{align*}
+\mathbb{E} \left( \int_0^\infty 1_{X_s=0}ds \right) = \int_0^\infty \overbrace{\mathbb{P}(X_s=0)}^{=0}ds = 0 \implies \int_0^\infty 1_{X_s=0}ds =0.
+\end{align*}
+This implies in particular that the local martingale $( \int_0^t 1_{X_s=0} dB_s)_{t \geq 0}$ is constant and equal to $0$, indeed 
+\begin{align*}
+\mathbb{E}\left[ \left( \int_0^\infty 1_{X_s=0} dB_s\right)^2 \right] = \mathbb{E}\left( \int_0^\infty (1_{X_s=0})^2 ds \right) = \mathbb{E}\left( \int_0^\infty 1_{X_s=0} ds \right) =0.
+\end{align*}
+So we have $\int_0^\infty 1_{X_s=0} dB_s=$ and we get the values of $\int_0^t 1_{X_s=0} dB_s$ by using martingales arguments (conditioning on $\mathcal{F}_t)$. 
+\item If such a process $X$ exists and if we define $Y=-X$, then this process $Y$ would also satisfy the SDE, because ( $- \text{sgn}(x)= \text{sgn}(-x)-2 \times 1_{x=0}$)
+\begin{align*}
+Y_t &= - \int_0^t \text{sgn}(X_s)dB_s =  \int_0^t \text{sgn}(-X_s)dB_s - 2 \int_0^t 1_{X_s=0} dB_s \\ &= \int_0^t \text{sgn}(Y_s)dB_s-0 = \int_0^t \text{sgn}(Y_s)dB_s
+\end{align*}
+\end{itemize}
+\newpage
+The last item shows that for this SDE, one can not have a unique strong solution as in the previous Lipschitz case. It is in fact possible to show that there is no strong solution at all. On the other hand the first item shows that any solution has a specific law (as it is necessarily a Brownian motion). \\
+\\
+Let us now suppose that we are given a Brownian motion $X$ on some filtered probability space, then one can define the process $B$ by 
+\begin{align*}
+B_t:= \int_0^t \text{sgn}(X_s)dX_s.
+\end{align*}
+This process $B$ is therefore a Brownian motion in this space (because it is a local martingale with $\langle B \rangle_t=t)$, and for all $t \geq 0$, we have 
+\begin{align*}
+\int_0^t \text{sgn}(X_s)dB_s = \int_0^t ( \text{sgn}(X_s))^2 dX_s = \int_0^t dX_s=X_t
+\end{align*}
+Hence we have constructed a filtered probability space and a pair of processes $(X,B)$ on this space such that $B$ is a Brownian motion and such that for all $t \geq 0$, 
+\begin{align*}
+X_t= \int_0^t \text{sgn}(X_s)dB_s.
+\end{align*}
+This type of construction is described as the existence of \textbf{weak solutions} to this SDE.
+\subsubsection{Existence of weak solutions}
+Let us now state without proof the existence result for weak solutions, that is the SDE analog of Peano's theorem for ODEs. 
+\begin{thm}[Bounded \& continuous coefficients, existence of weak solutions] \ \\ Suppose that $\sigma$ and $b$ are bounded continuous functions (from $\mathbb{R}^d$ into $\mathbb{R}^{d \times d}$ and into $\mathbb{R}^d$ respectively). Suppose that $x \in \mathbb{R}^d$. Then it is possible to construct a filtered probability space and two continuous adapted processes $X$ and $B$ in this probability space, such that $B$ is a $d$-dimensional Brownian motion for this filtration, and such that for all $t \geq 0$, 
+\begin{align*}
+X_t = x + \int_0^t b(X_s)ds + \int_0^t \sigma(X_s)dB_s. 
+\end{align*}
+\end{thm}
+\begin{rem} Again, if we remove the boundedness constraint, one can show the existence of weak solutions up to some explosion time. As we have already mentioned,  this type of result is based on compactness/tightness argument (but there is more to it in the proof). 
+\end{rem}
+\newpage
+\subsubsection{Combining weak existence and pathwise uniqueness}
+Suppose that we are in the framework of the Yamade-Watanabe theorem, and that $\sigma$ and $b$ are continuous and also bounded. In other words we assume two things:
+\begin{itemize}
+\item $\sigma$ and $b$ are continuous and also bounded (see previous theorem on weak existence).
+\item $\sigma$ satisfies moreover the condition of Yamade-Watanabe's theorem. 
+\end{itemize}
+One then has the existence of weak solutions on some probability space, and by the Yamade-Watanabe Theorem, in that probability space, there is no other solution to the SDE. It is then in fact possible to deduce that this solution on that probability space is even a strong solution (i.e. our weak solution is a strong solution). Essentially because if the solution was not a deterministic function of a Brownian motion in that space, it would be possible to construct another one. 
+\\
+\\
+To summarize, in the framework as introduced above, it is possible to show that a weak solution, is actually a strong solution. 
+\\\\
+An application of this is the construction of the squared Bessel processes (and then of the Bessel processes) that we now give (pay special attention to the exercise sheets!):
+\begin{cor}[Definition of Bessel processes] The previous remarks show that for any non-negative real $d$, one has existence and uniqueness of the solution to the SDE
+\begin{align*}
+dZ_t= 2 \sqrt{|Z_t|} dB_t + d \times dt.
+\end{align*}
+\end{cor}
+\begin{defn}The process $Y= \sqrt{Z}$ where $Z$ is a squared Bessel process of dimension $d$, is called a Bessel process of dimension $d$.
+\end{defn}
+Itô's formula then shows that for all $t \geq 0$, and as long as $t <\inf \{s \geq 0: Y_s=0\}$,
+\begin{align*}
+Y_t = Y_0 + B_t + \frac{d-1}{2} \int_0^t \frac{ds}{Y_s}.
+\end{align*}
+\end{document}

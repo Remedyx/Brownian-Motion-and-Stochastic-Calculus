@@ -1,0 +1,64 @@
+<?xml version="1.1" encoding="windows-1252"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:latexdraw="http://latexdraw.sourceforge.net/namespaces/latexdraw"
+    version="1.1" baseProfile="full">
+    <g>
+        <g latexdraw:type="bezierCurve" id="id10938478">
+            <path
+                d="M 400.0 100.0 C 400.0 100.0 380.0 80.0 340.0 80.0 C 300.0 80.0 260.3069233026724 114.3094225689872 240.0 160.0 C 219.69307669732763 205.6905774310128 237.6393202250021 215.27864045000422 260.0 260.0 C 282.3606797749979 304.7213595499958 292.56583509747435 295.81138830084205 340.0 280.0 C 387.43416490252565 264.18861169915795 336.58784289377707 224.80694691784169 380.0 200.0 C 423.41215710622293 175.19305308215826 471.78005063473216 249.3196961916069 480.0 200.0 C 488.21994936526784 150.6803038083931 460.0 140.0 400.0 100.0 "
+                stroke-width="2.0" stroke="black" fill="none" latexdraw:rotationAngle="0.0"/>
+        </g>
+        <g latexdraw:type="dot" id="id7178566" latexdraw:size="6.0"
+            latexdraw:dotShape="*" latexdraw:position="280.0 200.0">
+            <path
+                d="M 282.7692307692308 200.0 C 282.7692307692308 201.52940392260834 281.52940392260837 202.76923076923077 280.0 202.76923076923077 C 278.47059607739163 202.76923076923077 277.2307692307692 201.52940392260834 277.2307692307692 200.0 C 277.2307692307692 198.47059607739163 278.47059607739163 197.23076923076923 280.0 197.23076923076923 C 281.52940392260837 197.23076923076923 282.7692307692308 198.47059607739163 282.7692307692308 200.0 z "
+                fill="black" stroke-linecap="square"
+                stroke-linejoin="butt" stroke-width="0.375"
+                stroke-miterlimit="10.0" stroke-dashoffset="0.0" stroke="black"/>
+        </g>
+        <g latexdraw:type="dot" id="id18844684" latexdraw:size="6.0"
+            latexdraw:dotShape="*" latexdraw:position="340.0 80.0">
+            <path
+                d="M 342.7692307692308 80.0 C 342.7692307692308 81.52940392260835 341.52940392260837 82.76923076923076 340.0 82.76923076923076 C 338.47059607739163 82.76923076923076 337.2307692307692 81.52940392260835 337.2307692307692 80.0 C 337.2307692307692 78.47059607739165 338.47059607739163 77.23076923076923 340.0 77.23076923076923 C 341.52940392260837 77.23076923076923 342.7692307692308 78.47059607739165 342.7692307692308 80.0 z "
+                fill="black" stroke-linecap="square"
+                stroke-linejoin="butt" stroke-width="0.375"
+                stroke-miterlimit="10.0" stroke-dashoffset="0.0" stroke="black"/>
+        </g>
+        <g latexdraw:type="text" id="id22615261" fill="black" latexdraw:position="bl">
+            <text x="425.0" y="177.0">$D$</text>
+        </g>
+        <g latexdraw:type="text" id="id18768000" fill="black" latexdraw:position="bl">
+            <text x="280.0" y="220.0">$x$</text>
+        </g>
+        <g latexdraw:type="text" id="id13811079" fill="#ff9900" latexdraw:position="bl">
+            <text x="344.0" y="77.0">$B_T$</text>
+        </g>
+        <g latexdraw:type="bezierCurve" id="id11544886">
+            <path
+                d="M 280.2972972972974 199.00000000000003 C 302.0773479320295 239.31969619160694 314.6443946055003 219.11692832112362 324.0 170.0 C 333.3556053944997 120.88307167887638 238.76180893811312 191.15587028960562 287.0 178.0 C 335.238191061887 164.84412971039436 326.4329412624376 216.26058774098374 335.0 167.0 C 343.5670587375624 117.73941225901626 332.0493475717991 165.57597123694296 295.0 132.0 C 257.95065242820084 98.42402876305701 263.75586172332874 168.98221442895098 303.0 138.0 C 342.24413827667115 107.0177855710491 262.9129044202582 104.18318015009217 310.0 121.0 C 357.0870955797417 137.8168198499078 313.76524762227876 113.95655952784847 345.0 153.0 C 376.23475237772124 192.04344047215153 329.5472047953547 207.62546622574723 350.0 162.0 C 370.4527952046452 116.37453377425311 312.4816761268696 144.69014721505923 358.0 124.0 C 403.5183238731304 103.30985278494083 403.23475237772124 191.04344047215153 372.0 152.0 C 340.76524762227876 112.95655952784847 375.34837857304643 149.48052216971905 346.0 109.0 C 316.6516214269535 68.51947783028083 354.7320266551954 160.60411042866644 343.0 112.0 C 331.2679733448046 63.39588957133333 350.3866477901838 98.83936070423351 339.0 80.0 "
+                stroke-width="2.0" stroke="#ff9900" fill="none" latexdraw:rotationAngle="0.0"/>
+        </g>
+    </g>
+    <defs/>
+    <metadata>
+        <latexdraw:metadata>
+            <latexdraw:latexIncludes>\usepackage{amssymb}</latexdraw:latexIncludes>
+            <latexdraw:displayXScale>true</latexdraw:displayXScale>
+            <latexdraw:displayYScale>true</latexdraw:displayYScale>
+            <latexdraw:unit>CM</latexdraw:unit>
+            <latexdraw:zoom>1.85</latexdraw:zoom>
+            <latexdraw:magneticGridStyle>CUSTOMISED</latexdraw:magneticGridStyle>
+            <latexdraw:gridGap>20</latexdraw:gridGap>
+            <latexdraw:magneticGrid>false</latexdraw:magneticGrid>
+            <latexdraw:version>3.3.8</latexdraw:version>
+            <latexdraw:size>
+                <latexdraw:width>1034</latexdraw:width>
+                <latexdraw:height>827</latexdraw:height>
+            </latexdraw:size>
+            <latexdraw:position>
+                <latexdraw:x>44.0</latexdraw:x>
+                <latexdraw:y>122.0</latexdraw:y>
+            </latexdraw:position>
+        </latexdraw:metadata>
+    </metadata>
+</svg>

@@ -1,0 +1,213 @@
+\documentclass[../mainfile.tex]{subfiles}
+
+\begin{document}
+\section{Continuous martingales}
+\subsection{Continuous martingales, convergence and optional stopping theorems}
+\subsubsection{Basic defintions, Doob's inequalities}
+We work on a \textbf{filtered probability space}, i.e. a space $(\Omega, (\mathcal{F})_{t \geq 0} , \mathcal{F}, \mathbb{P})$ where $(\mathcal{F}_t)_{t \geq 0}$ is a given filtration (meaning that for all $s \leq t$ we have $\mathcal{F}_s \subset \mathcal{F}_t \subset \mathcal{F}$ and $\mathcal{F}_t$ is a $\sigma$-field). The way to think about it is that $t$ represents time and that $\mathcal{F}_t$ corresponds to what one can observe at time $t$.
+\\
+Typically one defines $\mathcal{F}_\infty := \sigma( \bigcup_{t \geq 0} \mathcal{F}_t)$ and in general, one does not always have $\mathcal{F}_\infty = \mathcal{F}.$ \\
+\\
+It can be convenient (in order to simplify some minor measurability issues) to consider a filtered probability space that satisfies the so-called \textbf{usual conditions}. These are two conditions we want our filtration to satisfy, namely:
+\begin{enumerate}
+\item The filtration is \textbf{complete}: The $\sigma$-field $\mathcal{F}_0$ (and therefore all $\mathcal{F}_t)$ does contain all sets $A \subset \Omega$ (not necessarily measurable) that are contained in a measurable set $A' \in \mathcal{F}$ of probability zero. 
+\item The filtration is \textbf{right-continuous}: For each $t \geq 0$ we have 
+\begin{align*}
+\mathcal{F}_t = \bigcap_{\epsilon >0} \mathcal{F}_{t + \epsilon},
+\end{align*}
+i.e. at time $t$ we already have the maximum amount of information we can have, we don't need to look into an "$\epsilon$-future".
+\end{enumerate}
+\begin{defn} A process $(X_t)_{t \geq 0}$ is said to be \textbf{adapted} to the filtration $( \mathcal{F}_t)_{t \geq 0}$ if for each $t \geq 0$, the random variable $X_t$ is $\mathcal{F}_t$-measurable. We say that the process is in $L^1$ if for each $t \geq 0$ the random variable $X_t$ is in $L^1$.  
+\end{defn}
+\newpage
+\begin{defn} A process $(M_t)_{t \geq 0}$ defined in this filtered probability space is said to be a continuous martingale with respect to the filtration $( \mathcal{F}_t)_{t \geq 0}$ if it is an $L^1$ process that is adapted to this filtration and such that
+\begin{itemize}
+\item For all $s \leq t$, $M_s= \mathbb{E}(M_t \mid \mathcal{F}_s)$ almost surely.
+\item There exists an event of probability $1$ such that on this event, $t \mapsto M_t$ is a continuous function on $\mathbb{R}_+$. 
+\end{itemize}
+\end{defn}
+\begin{rem} \ \begin{enumerate}
+\item Note that the first property in the definition above can equivalently be rewritten as for all $t,s \geq 0$ we have $\mathbb{E}(M_{t+s} \mid \mathcal{F}_s)= M_s.$
+\item Of course an example of a continuous martingale is Brownian motion, indeed let $s,t \geq 0$, by the weak Markov property we know that\\  $\tilde{B}_t= B_{t+s}-B_s$ is a Brownian motion which is independent of $\mathcal{F}_s$, hence:
+\begin{align*}
+\mathbb{E}(B_{t+s} \mid \mathcal{F}_s)&=  \mathbb{E}( \tilde{B}_t + B_s \mid \mathcal{F}_s)=B_s + \mathbb{E}(\tilde{B}_t \mid \mathcal{F}_s) \\
+& = B_s+\mathbb{E}( \tilde{B}_t ) = B_s.
+\end{align*} 
+\item As a more general remark, it is apparent from the definition of a martingale, that it depends on the filtration $( \mathcal{F}_t)_{t \geq 0}$, it is thus good practice to actually call it an $\mathcal{F}_t$-martingale, to highlight this dependency. However in this course we usually deal with a given filtered probability space or we work with a canonical filtration (for example the Brownian filtration). Hence we use the terminology of a continuous martingale.
+\end{enumerate}
+\end{rem}
+Very loosely speaking the outcome of our study will be that a continuous martingale can (always) be obtained as follows: One has on the one hand a Brownian motion $(B_s)_{s \geq 0}$ and also some other available randomness (at request). The time $s$ of a Brownian motion is a priori not the same as the time of the continuous martingale $(M_t)_{t \geq 0}$. Then, one explores (starting from $B_0$) the profile of the function $B$ by moving to the right in a continuous way. In other words, one has a (possibly random) continuous non-decreasing function $t \mapsto s(t)$ and then $M_t$ is equal to $B_{s(t)}$.\\
+\newpage
+We note that when $(M_t)_{t \geq 0}$ is a continuous martingale with respect to the filtration $( \mathcal{F}_t)_{t \geq 0}$ then for all $j \geq 0$ and $u \geq 0$, the process $(M_{ju}, j \geq 0)$ is a discrete martingale with respect to the discrete filtration $( \mathcal{F}_{ju})_{j \geq 0}$. This, together with the continuity of $t \mapsto M_t$ allows to deduce some results for continuous martingales from the theory of discrete martingales. \\
+\\
+For instance, we have already mentioned Doob's $L^2$ inequality, for discrete martingales that implies (when applies to the previous discrete martingale for $u=t2^{-n})$ that if $(M_t)_{t \geq 0}$ is a continuous martingale and $M_t \in L^2$ for some given $t$, then 
+\begin{align*}
+\mathbb{E}( (\max_{j \leq 2^n } M_{jt2^{-n}})^2) \leq 4 \mathbb{E}( M_t^2). 
+\end{align*}
+On the other hand the almost sure continuity of the paths shows that almost surely,  
+\begin{align*}
+(\max_{j \leq 2^n} M_{jt2^{-n}})^2 \overset{n \to \infty} \longrightarrow ( \max_{s \in [0,t]} M_s)^2 
+\end{align*}
+so that by monotone convergence we get:
+\begin{prop}[Doob's $L^2$ inequality for continuous martingales] If $(M_t)_{t \geq 0}$ is a continuous martingale and $M_t \in L^2$ for some given $t$, then we have
+\begin{align*}
+\mathbb{E}(( \sup_{s \leq t} M_s)^2) \leq 4 \mathbb{E}(M_t^2).
+\end{align*}
+\end{prop}
+In the same way, one obtains the $L^p$ inequalities or Doob's maximal inequality for continuous martingales as well
+\begin{prop}[Doob's $L^p$ inequality for continuous martingales] If $(M_t)_{t \geq 0}$ is a continuous martingale and $M_t \in L^p$ for some given $t \geq 0$ and $p>1$, then
+\begin{align*}
+\mathbb{E}(( \sup_{s \leq t} M_s)^p) \leq (p/(p-1))^p \mathbb{E}(| M_t|^p). 
+\end{align*}
+\end{prop}
+\begin{prop}[Doob's maximal inequality for continuous martingales] If $(M_t)_{t \geq 0}$ is a continuous martingale, then for all $\lambda >0$
+\begin{align*}
+ \mathbb{P}( \sup_{[0,t]} |M_s| > \lambda)  \leq \frac{1}{\lambda} \mathbb{E}( |M_t|1_{\sup_{[0,t]}|M_s| > \lambda}) \leq \frac{1}{\lambda} \mathbb{E}( |M_t|). 
+\end{align*}
+\end{prop}
+\newpage
+\subsubsection{Convergence theorems}
+The convergence results for continuous martingales are also basically the same as those for discrete martingales. The story is again that if one knows the proof in the discrete case well, then said proof can be extended to the continuous case (using the continuity of the paths). \\
+\\
+Recall that we say that a martingale $(M_t)_{t \geq 0}$ is: 
+\begin{itemize}
+\item in $L^p$ for $p >1$, if for all $t \geq 0$, $M_t \in L^p$.
+\item Bounded in $L^1$ if $\sup_{t \geq 0} \mathbb{E}(|M_t|) < \infty.$
+\item Bounded in $L^p$ (for a given $p \geq 1$) if $\sup_{t \geq 0} \mathbb{E}(|M_t|^p) < \infty$
+\item Uniformly integrable (UI) if $
+\displaystyle \lim_{A \to \infty} ( \sup_{t \geq 0} \mathbb{E}( |M_t| 1_{|M_t| \geq A}))=0. $
+
+\end{itemize}
+\begin{rem} Recall that a sequence of random variables $(X_n)_{n \in \mathbb{N}}$ converges in $L^1$ if and only if it converges in probability and is uniformly integrable. Also,  we have the following chain of implications:
+\begin{align*}
+\text{Bounded in }L^p \text{ (for }p > 1) \implies \text{Uniformly integrable} \implies \text{Bounded in }L^1. 
+\end{align*}
+\end{rem}
+\begin{rem} Let us consider a family $(X_i)_{i \in I}$ of $L^1$ random variables. Recall that any single one of the following three criteria implies that $(X_i)_{i \in I}$ is uniformly integrable:
+\begin{itemize}
+\item There exists $p>1$ and $C>0$ such that for all $i \in I$, $\mathbb{E}( |X_i|^p) \leq C$. 
+\item There exists a RV $X$ in $L^1$ such that for all $i \in I$, $|X_i| \leq |X|$ a.s.
+\item There exists a random variable $X$ and a collection of $\sigma$-fields $\mathcal{G}_i$ such that for all $i \in I$, we have $X_i = \mathbb{E}(X \mid \mathcal{G}_i)$ almost surely. 
+\end{itemize}
+\end{rem}
+\begin{prop}[Convergence criteria for continuous martingales] Let $(M_t)_{t \geq 0}$ be a continuous martingale, then we have
+\begin{itemize}
+\item If $(M_t)_{t \geq 0}$ is bounded in $L^1$,  then $M_t$ converges almost surely as $t \to \infty$ to some random variable $M_\infty \in L^1 ( \mathcal{F}_\infty)$. 
+\item If $(M_t)_{t \geq 0}$ is UI, then $M_t$ converges almost surely and in $L^1$ to some random variable $M_\infty \in L^1( \mathcal{F}_\infty)$. ($\rightsquigarrow$ $\mathbb{E}(M_\infty) = \lim_{t \to \infty} \mathbb{E}(M_t)=\mathbb{E}(M_0)$).
+\item If $(M_t)_{t \geq 0}$ is bounded in $L^p$ for some given $p>1$, then $M_t$ converges almost surely and in $L^p$ to some random variable $M_\infty \in L^p( \mathcal{F}_\infty)$. 
+\end{itemize}
+\end{prop}
+\newpage
+\subsubsection{Optional stopping theorems}
+One can also define, as for discrete filtrations, the notion of stopping times. It is then our goal in this section to find conditions on $T$ (finite) stopping time, such that we have $\mathbb{E}(M_T)=\mathbb{E}(M_0)$ for a continuous martingale $(M_t)_{t \geq 0}$. 
+\begin{defn} The random variable $T$ with values in $[0, \infty]$ is said to be a stopping time for the filtration $( \mathcal{F}_t)_{t \geq 0}$ if for any positive $t$, the event $\{T \leq t \}$ is in $\mathcal{F}_t$. 
+\end{defn}
+\begin{rem} $M_T$ is well-defined, because $t \mapsto M_t$ is continuous. 
+\end{rem}
+Let us start with the following easiest version of the optional stopping theorem, together with a useful characterization of continuous martingales:
+\begin{lem}[Optional stopping, bounded stopping times] Suppose that the continuous process $(M_t)_{t \geq 0}$ is an adapted $L^1$ process in some filtered probability space. Then the following two statements are equivalent:
+\begin{enumerate}
+\item The process $(M_t)_{t \geq 0}$ is a (continuous) martingale.
+\item For any bounded stopping time $T$, one has $\mathbb{E}(M_T)= \mathbb{E}(M_0).$
+\end{enumerate}
+\end{lem}
+\begin{cor} If $(M_t)_{t \geq 0}$ is a continuous martingale, and $S$ is a stopping time (w.r.t. the same filtration), then the stopped process $M^S:= (M_t^S:=M_{t \wedge S})_{t \geq 0}$ is also a (continuous) martingale (w.r.t. the same filtration).
+\end{cor}
+\begin{proof}
+We first note that for any fixed $t_0 \geq 0$, $\min(t_0,S)$ is a bounded stopping time,  and thus $M_{t_0}^S$ is in $L^1$ by the previous Lemma. Let now $T$ be any bounded stopping time, then $\min(S,T)$ is also a bounded stopping time,  which implies that  (also by the previous Lemma) $\mathbb{E}(_{S \wedge T})= \mathbb{E}(M_0)$ which can be rewritten as $\mathbb{E}(M_T^S)= \mathbb{E}(M_0^S)$,  from which we conclude (using that 2. implies 1. in the previous Lemma) that $M^S$ is a martingale. 
+\end{proof}
+We can now apply these ideas to obtain a workable version of the optional stopping theorem. Given a continuous martingale $(M_t)_{t \geq 0}$ and a finite stopping time $T$, then we know that $M^T$ is again a continuous martingale, in particular we have $M_t^T = M_{t \wedge T} \to M_T$ almost surely as $t \to \infty$. So if the stopped martingale $(M_t^T)_{t \geq 0}$ is UI, then $M_t^T \to M_T$ also in $L^1$ as $t \to \infty$ and therefore
+\begin{align*}
+\mathbb{E}(M_T)= \mathbb{E}(M_\infty^T) = \lim_{t \to \infty} (M_t^T)= \lim_{t \to \infty} \mathbb{E}(M_0^T)= \mathbb{E}(M_0). 
+\end{align*} 
+We have thus shown:
+\begin{thm}[Optional stopping theorem,  workable version] If $(M_t)_{t \geq 0}$ is a continuous martingale and if $T$ is a finite stopping time such that the stopped martingale $M^T$ is uniformly integrable, then $\mathbb{E}(M_T)= \mathbb{E}(M_0).$ 
+\end{thm}
+\newpage
+\begin{exmp}[\textbf{Warning:} Important counterexample!] Here we shall talk about the enemy in optional stopping theorems. Just as in the discrete martingale case, in order to apply the optional stopping theorem, one has to \textbf{carefully} check that the stopped martingale is \textbf{uniformly integrable} (for example it suffices to check for a $p>1$ that the martingale is bounded in $L^p$).
+\\\\
+Let us take for example the continuous martingale $(B_t)_{t \geq 0}$ a $1$-dimensional Brownian motion associated with its natural filtration. Let $T:= \inf \{ t >0 : B_t = -1 \}$, then $T$ is a well-defined and finite stopping time, moreover we have $B_T=-1$ almost surely, but 
+\begin{align*}
+\mathbb{E}(B_T)=-1 \neq \mathbb{E}(B_0)=0.
+\end{align*}
+In particular we see that the stopped martingale $B^T$ is not uniformly integrable and thus the optional stopping time cannot be applied. 
+\end{exmp}
+\subsubsection{Application of the optional stopping theorem}
+The simple (workable version) of the optional stopping theorem provides us already with non-trivial results for the case of the two most natural Brownian martingales:
+\begin{lem} Consider a one-dimensional Brownian motion $(B_t)_{t \geq 0}$ and suppose for instance that $( \mathcal{F}_t)_{t \geq 0}$ is the Brownian filtration. 
+\begin{itemize}
+\item \textbf{The quadratic martingale}: The process $(M_t:= B_t^2-t)_{t \geq 0}$ is a martingale with respect to the filtration $( \mathcal{F}_t)_{t \geq 0}.$
+\item \textbf{The exponential martingales}: For any $\lambda \in \mathbb{R}$, the processes \\ $\mathcal{E}_\lambda(t):= M_t^\lambda:= \exp( \lambda B_t- \lambda^2t/2)$ are martingales with respect to the filtration $( \mathcal{F}_t)_{t \geq 0}$. 
+\end{itemize}
+\end{lem}
+\begin{proof}
+The proofs are immediate consequences of the fact that $B$ has stationary independent increments, in other words we make use of the weak Markov property, namely that $B_{t+h}-B_t$ is independent of $\mathcal{F}_t$. Let $t,h \geq 0:$ 
+\begin{align*}
+\mathbb{E}(B_{t+h}^2 \mid \mathcal{F}_t)&= \mathbb{E}( (B_{t+h}-B_t+B_t)^2 \mid \mathcal{F}_t) \\
+& = \mathbb{E}( B_t^2 + (B_{t+h}-B_t)^2+2 B_t( B_{t+h}-B_t) \mid \mathcal{F}_t) \\
+& = B_t^2 + 2B_t \mathbb{E}((B_{t+h}-B_t) \mid \mathcal{F}_t) + \mathbb{E}((B_{t+h}-B_t)^2 \mid \mathcal{F}_t) \\
+& = B_t^2 + 2B_t \mathbb{E}(B_{t+h}-B_t) + \mathbb{E}((B_{t+h}-B_t)^2) \\
+&= B_t^2 + 0 + h = B_t^2 +h 
+\end{align*}
+Which proves the claim for the quadratic martingale. 
+\newpage
+For the exponential martingale, one notes that almost surely
+\begin{align*}
+\mathbb{E}(\exp( \lambda B_{t+h} )\mid \mathcal{F}_t) &= \mathbb{E}( \exp( \lambda B_t) \exp( \lambda (B_{t+h}-B_t)) \mid \mathcal{F}_t) \\
+&= \exp( \lambda B_t) \mathbb{E}( \exp( \lambda (B_{t+h}-B_t)) \mid \mathcal{F}_t) \\
+&= \exp( \lambda B_t) \mathbb{E}( \exp( \lambda (B_{t+h}-B_t))) \\
+&= \exp( \lambda B_t) \exp( \lambda^2h/2). 
+\end{align*}
+which concludes the proof of the lemma. 
+\end{proof}
+We now study some simple examples:
+\begin{exmp} Let $\tau = \inf  \{ t >0 : B_t \notin (-1,1)\}$ be the exit time from $[-1,1]$. The quadratic martingale $M_t= B_t^2-t$ stopped at $\tau$ is uniformly integrable because for all $t \geq 0$ we have 
+\begin{align*}
+|M_t^\tau| = | B_{t \wedge \tau}^2 - ( t \wedge \tau) | \leq |B_{t \wedge \tau}^2| + \tau \leq 1 + \tau.
+\end{align*}
+But we know that $\mathbb{E}( \tau^2) < \infty$,  so that the stopped martingale is bounded in $L^2$ and we know that this implies that it is uniformly integrable. Hence, we can apply the optional stopping theorem to obtain 
+\begin{align*}
+\mathbb{E}( M_\tau)= \mathbb{E}( M_0)=0 \iff \mathbb{E}( \tau) = \mathbb{E}(B_\tau^2) =1. 
+\end{align*}
+\end{exmp}
+\begin{exmp} Suppose now that $a<0<b$ and that $T:=T_{a,b}:= \inf \{ t >0 : B_t \notin (a,b)\}$ is the first time at which the Brownian motion $B$ exits the interval $(a,b)$. If we first work with the martingale $(M_t=B_t)_{t \geq 0}$ then the stopped martingale is obviously bounded because
+\begin{align*}
+|B_t^T| \leq |a|+|b|
+\end{align*}
+and since bounded implies in particular uniformly integrable we can again use the optional stopping theorem to obtain just like for random walks 
+\begin{align*}
+\mathbb{E}(B_T)=0= a \mathbb{P}(B_T=a) + b(1- \mathbb{P}(B_T=a)) \\
+\implies \mathbb{P}(B_T=a)= \frac{b}{b-a}, \ \mathbb{P}(B_T=b)= \frac{-a}{b-a}.
+\end{align*}
+Similarly, if we consider the quadratic martingale $M_t=B_t^2-t$, then the stopped martingale $M^T$ is bounded in $L^2$ because 
+\begin{align*}
+|M_t| \leq |a|^2 + |b|^2 + T
+\end{align*}
+and again $T$ is in $L^2$, thus $M^T$ is UI and we can apply the optional stopping theorem to obtain
+\begin{align*}
+\mathbb{E}(T)=a^2 \mathbb{P}(B_T=a)+ b^2 \mathbb{P}(B_T=b)=|ab|. 
+\end{align*}
+\end{exmp}
+\newpage
+\begin{exmp} Let us now consider a final example in which we make use of the exponential martingale. By considering the sum $\mathcal{E}_\lambda (t) + \mathcal{E}_{- \lambda
+}(t)$ and the difference $\mathcal{E}_\lambda(t) - \mathcal{E}_{- \lambda}(t)$, we get that
+\begin{align*}
+\tilde{\mathcal{E}}_\lambda (t) := e^{- \lambda^2t/2}\cosh( \lambda B_t) \text{ and } \hat{\mathcal{E}}_\lambda(t):= e^{- \lambda^2t/2} \sinh( \lambda B_t)
+\end{align*}
+are also continuous martingales.  Let $\tau$ be again the exit time of a Brownian motion of the interval $[-1,1]$. If we consider the stopped martingale $\tilde{\mathcal{E}}_\lambda^\tau$ we easily see that 
+\begin{align*}
+|\tilde{\mathcal{E}}_\lambda^\tau| \leq \cosh( \lambda), 
+\end{align*}
+so the stopped martingale is bounded and especially uniformly integrable. The optional stopping theorem then shows that 
+\begin{align*}
+\mathbb{E}( \tilde{\mathcal{E}}_\lambda( \tau)) = \mathbb{E}( \tilde{\mathcal{E}}_\lambda(0))= \cosh(0)=1 \\
+\iff \mathbb{E}(e^{- \lambda^2 \tau/2} \cosh( \lambda B_\tau))= \mathbb{E}(e^{-\lambda^2 \tau/2} \cosh( \lambda)) =1 \\
+\implies \mathbb{E}(e^{- \lambda^2 \tau/2}) = 1/ \cosh( \lambda). 
+\end{align*}
+If we substitute $x= \frac{\lambda^2}{2} \geq 0$ in the above, we see that for all $x \geq 0$ we get 
+\begin{align*}
+\mathbb{E}(e^{- x \tau}) = 1/ \cosh( \sqrt{2x}).
+\end{align*}
+This gives the formula for the Laplace transform of the positive random variable $\tau$, which we know does characterize the law of $\tau$. So, we see that the collection of formulas given by the optional stopping theorem for the collection of exponential martingales at time $\tau$ does provide a full analytical description of the law of $\tau$. 
+\end{exmp}
+\end{document}

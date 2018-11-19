@@ -1,0 +1,263 @@
+\documentclass[../mainfile.tex]{subfiles}
+
+
+
+\begin{document}
+\section{Absolute continuity between laws of processes}
+In this final section, we will describe a more probabilistic idea that relates martingales to change of probability measures. This will also provide tools to construct weak solutions of SDEs, and results that have no real analog in the ODE setting, and that are making use of the randomness in an SDE.
+\subsection{Warm-up}
+Recall the definition of absolute continuity 
+\begin{defn}[Absolute continuity of measures] Given two measures $\mu$ and $\nu$ on the same measurable space $(\Omega, \mathcal{A})$, then $\mu$ is said to be absolutely continuous with respect to $\nu$ (or dominated by $\nu)$ denoted by $\mu \ll \nu$ if for all $A \in \mathcal{A}$ with $\nu (A)=0$ implies $\mu(A)=0$. 
+\end{defn}
+The relevant theorem that goes with this theorem is that of the Radon-Nikodým derivative:
+\begin{thm}[Radon-Nikodým] Let $(\Omega, \mathcal{A})$ be a measurable space, on which two $\sigma$-finite measure $\mu$ and $\nu$ are defined. Assume that $\nu \ll \mu$ (i.e. $\nu$ is absolutely continuous with respect to $\mu$), then there exists a measurable function $f: \Omega \to [0, \infty)$ such that for every measurable set $A \in \mathcal{A}$ 
+\begin{align*}
+\nu (A) = \int_A f d \mu. 
+\end{align*}
+Furthermore, $f$ is unique $\mu$-almost everywhere. The function $f$ is called the Radon-Nikodým derivative of $\nu$ with respect to $\mu$ and is denoted by 
+\begin{align*}
+f = \frac{d \nu}{d \mu}
+\end{align*}
+\end{thm}
+\begin{rem} Since we work in a probabilistic settings, i.e. on a probability space $(\Omega, \mathcal{F}, \mathbb{P})$ on which we are given two probability measures, say $\mathbb{P}$ and $\mathbb{Q}$, then these measures are always finite (because they assign a unit value to the measure of the whole space $\Omega$), in particular they are $\sigma$-finite. 
+\end{rem}
+A relevant question we're going to discuss here is the following: Given a Brownian motion $(B_t)_{t \leq 1}$ and a deterministic continuous function $(h(t))_{t \geq 1}$ we wonder, under what conditions on $h$ is it true that the law of $(B_t + h(t))_{t \leq 1}$ is absolutely continuous with respect to the law of $(B_t)_{t \leq 1}$. 
+\newpage
+\subsubsection{Change of probability measures and martingales}
+We will first discuss why uniformly integrable non-negative martingales with mean $1$ can be interpreted as a Radon-Nikodým derivative between two probability measures in a given filtered probability space. 
+\\
+\\
+Suppose that we are given a filtered probability space $( \Omega, \mathcal{F}, ( \mathcal{F}_t)_{t \geq 0}, \mathbb{P})$ (let us assume for convenience that the filtration is right-continuous) and lets assume that we are given another probability measure $\mathbb{Q}$ in this space that is absolutely continuous with respect to $\mathbb{P}$. 
+\\\\
+By the theorem of Radon-Nikodým there exists $D \in L^1( \Omega, \mathcal{F}, \mathbb{P})$ (non-negative) such that for all $A \in \mathcal{F}$ we have
+\begin{align*}
+\mathbb{Q}(A)= \mathbb{E}_\mathbb{P}(1_AD).
+\end{align*}
+Let us define for all $t \in [0, \infty]$, $D_t:= \mathbb{E}(D \mid \mathcal{F}_t)$. We notice that for all $t \in [0, \infty]$ we have $\mathbb{E}(D_t)= \mathbb{E}(D)= \mathbb{E}( \mathbb{Q}( \Omega))= 1$. We also define $D_\infty = \mathbb{E}(D \mid \mathcal{F}_\infty)$ on $\mathcal{F}_\infty$. 
+\begin{prop} This process $(D_t)_{t \geq 0}$ is a uniformly integrable, non-negative martingale (in the filtered probability space $( \Omega, \mathcal{F}, ( \mathcal{F}_t)_{t \geq 0}, \mathbb{P})$) that converges almost surely and in $L^1$ to the non-negative random variable $D_\infty$. 
+\end{prop}
+\begin{proof}
+The martingale property is trivial. But also since it's in closed form ($X_i= \mathbb{E}(X \mid \mathcal{G}_i)$ for a sequence of $\sigma$-fields),  we also know that it is UI. The convergence is then a consequence of the martingale convergence thm. 
+\end{proof}
+Conversely, let us start with a non-negative uniformly integrable martingale $( \mathcal{D}_t)_{t \geq 0}$ in $(\Omega, \mathcal{F}, (\mathcal{F}_t)_{t \geq 0}, \mathbb{P})$ with $\mathbb{E}( \mathcal{D}_t)=1$ for all $t \geq 0$. Since $\mathcal{D}$ is UI we know that $\mathcal{D}_t \to \mathcal{D}_\infty$ in $L^1$ and almost surely, thus in particular $\mathbb{E}( \mathcal{D}_\infty)= \mathbb{E}(\mathcal{D}_t)=1$. We can then use this to define another probability measure $\mathbb{Q}$ on $( \Omega, \mathcal{F}, \mathbb{P})$ by 
+\begin{align*}
+\mathbb{Q}(A):= \mathbb{E}(1_A \mathcal{D}_\infty), \text{ for all } A \in \mathcal{F}.
+\end{align*} 
+It is easy to check that $\mathbb{Q}$ is a probability measure, using that $\mathbb{E}(\mathcal{D}_\infty)=1$ and $(\mathcal{D})_{t \geq 0}$ is non-negative. Then we see that $( \mathcal{D}_t)_{t \geq 0}$ is exactly the process $(D_t)_{t \geq 0}$ defined as in the proposition above. That is we have
+\begin{align*}
+\mathcal{D}_t = \mathbb{E}( \mathcal{D}_\infty \mid \mathcal{F}_t).
+\end{align*}
+We also note that in this setup, $\mathbb{Q}$ is indeed absolutely continuous with respect to $\mathbb{P}$, because if $\mathbb{P}(A)= \mathbb{E}(1_A)=0$, then in particular $\mathbb{E}(1_A \mathcal{D}_\infty)= \mathbb{Q}(A)=0$. 
+\newpage
+\subsection{Girsanov's theorem}
+\subsubsection{Cameron-Martin space} Let us restate our question: Let $h$ be a continuous deterministic, real-valued function defined on $[0,1]$. Under what conditions on $h$ is it true that the law of $B_t + h(t)$ is absolutely continuous with respect to the law of $B_t$ on the time-interval $[0,1]$? For those functions $h$ for which we do have absolute continuity, what is the Radon-Nikodým derivative of the law of $(B_t + h(t))_{t \leq 1}$ with respect to that of $(B_t)_{t \leq 1}$. 
+\\\\
+Clearly, for some continuous functions $h$, we will not have absolute continuity. If we take for example $h(t)=t^{1/3}$, then we know that almost surely
+\begin{align*}
+\limsup_{t \to 0+} \frac{B_t+h(t)}{t^{1/3}}=1 \text{ and } \limsup_{t \to 0+} \frac{B_t}{t^{1/3}}=0,
+\end{align*}
+so that the laws of $(B_t)_{t \in [0,1]}$ and of $(B_t + h(t))_{t \in [0,1]}$ are singular with respect to each other. 
+\\\\
+The answer to our question is given by:
+\begin{prop}[Cameron-Martin space] Define the class $\mathcal{C}$ of functions 
+\begin{align*}
+\mathcal{C}:= \{ h:[0,1] \to \mathbb{R} \text{ continuous } \mid  \exists v \in L^2[0,1] : h(t) = \int_0^t v(s)ds \}.
+\end{align*}
+Then, for $h \in \mathcal{C}$, the law of $(B_t + h(t))_{t \leq 1}$ is absolutely continuous with respect to that of $(B_t)_{t \leq 1}$. Moreover, the Radon-Nikodým derivative of the law of $(B_t+h(t))_{t \leq 1}$ with respect to that of $(B_t)_{t \leq 1}$ is given by 
+\begin{align*}
+\exp \left( \int_0^1 v(s) d B_s - \frac{1}{2} \int_0^1 v(s)^2 ds \right) 
+\end{align*}
+\end{prop}
+We wont prove this Proposition, however we will state and prove the stronger Girsanov Theorem which will in particular imply the Cameron-Martin space. 
+\newpage
+\subsubsection{Girsanov's theorem}
+Let us consider a filtered probability space $( \Omega, \mathcal{F}, ( \mathcal{F})_{t \geq 0}, \mathbb{P})$. Let $N$ denote a continuous martingale started from $N_0=0$. We then define the exponential local martingale 
+\begin{align*}
+\mathcal{E}_t := \mathcal{E}(N)_t = \exp( N_t- \langle N \rangle_t/2 ).
+\end{align*}
+We assume that this exponential local martingale is UI and denote its limit by $\mathcal{E}_\infty$,  we then have  $\mathcal{E}_\infty \in L^1$ with $\mathbb{E}( \mathcal{E}_\infty)= \mathbb{E}( \mathcal{E}_0)=1$. Our previous considerations allow us to define another probability measure $\mathbb{Q}$ on $( \Omega, \mathcal{F})$ by 
+\begin{align*}
+\mathbb{Q}(A):= \mathbb{E}(1_A \mathcal{E}_\infty), \text{ for all } A \in \mathcal{F}.
+\end{align*}
+We also notice that $\mathcal{E}_t = \mathbb{E}( \mathcal{E}_\infty \mid \mathcal{F}_t)$, which implies that for all $A \in \mathcal{F}_t$, $\mathbb{Q}(A)= \mathbb{E}(1_A \mathcal{E}_t)$. So, one can view $\mathcal{E}_t$ as the Radon-Nikodým derivative of $\mathbb{Q}$ with respect to $\mathbb{P}$ when viewed on $(\Omega, \mathcal{F}_t)$. 
+\begin{thm}[Girsanov] Under the above conditions (i.e. when the local martingale $\mathcal{E}(N)$ is uniformly integrable), if $M=(M_t)_{t \geq 0}$ is a local martingale (under the probability $\mathbb{P})$, then in the filtered probability space $(\Omega, \mathcal{F}, (\mathcal{F}_t)_{t \geq 0}, \mathbb{Q})$ (i.e. under the probability measure $\mathbb{Q})$, the process 
+\begin{align*}
+\tilde{M}_t:= M_t - \langle M, N \rangle_t
+\end{align*}
+is a local martingale. Moreover we have ($\mathbb{Q}$ and $\mathbb{P})$-a.s. $\langle \tilde{M}\rangle_t = \langle M \rangle_t$. 
+\end{thm}
+Let us summarize what Girsanov's theorem tells us exactly:
+\begin{itemize}
+\item Under $\mathbb{P}$: $M$ is a local martingale and $\tilde{M}_t= M_t- \langle M, N \rangle_t$ is a semimartingale (since it is given in its decomposition of a local martingale $M$ and a bounded variation term $\langle M, N\rangle$). 
+\item Under $\mathbb{Q}$: $\tilde{M}$ is now a local martingale and $M_t= \tilde{M}_t + \langle M,N \rangle_t = \tilde{M}_t + \langle \tilde{M}, N \rangle_t$ is a semimartingale (again written in its unique decomposition). 
+\end{itemize}
+Let us also write down the special case for Brownian motion:
+\begin{thm}[Girsanov, Brownian case] Under the above conditions (i.e., when the local martingale $\mathcal{E}(N)$ is uniformly integrable), if $B$ denotes a Brownian motion (under the probability measure $\mathbb{P})$, then under the probability measure $\mathbb{Q}$, the process $\tilde{B}_t= B_t- \langle B,N \rangle_t$ is a Brownian motion. 
+\end{thm}
+This is indeed an immediate consequence from the first theorem because the local martingale has quadratic variation $\langle \tilde{B}_t \rangle = \langle B_t \rangle = t$ and one concludes with Lévy's characterisation. 
+\newpage
+Before we prove Girsanov's theorem,  we want to illustrate how one can use it to deduce the previously mentioned absolute continuity result (Cameron-Martin space). 
+\\\\
+Consider a Brownian motion $B$ and some deterministic function $h$ defined on $[0,1]$ in the space $\mathcal{C}$. We can then extend $h$ and $v$ by letting $h(t)=h(1)$ and $v(t)=0$ on $(1, \infty)$. We define
+\begin{align*}
+N_t:= \int_0^t v(s) dB_s.
+\end{align*}
+This is of course  a continuous local martingale, and we note that
+\begin{align*}
+\mathcal{E}(N)_t = \exp \left( \int_0^t v(s) dB_s - \frac{1}{2} \int_0^t v(s)^2 ds \right),
+\end{align*}
+and is easy to check (because $N$ is the time-change of a Brownian motion running until the deterministic finite time $\int_0^1 v(s)^2ds)$, that $\mathcal{E}(N)$ is uniformly integrable. Then by Girsanov's theorem we know that under the probability measure $\mathbb{Q}$ defined as 
+\begin{align*}
+\mathbb{Q}(A) = \mathbb{E}_\mathbb{P}(1_A \mathcal{E}_\infty) = \mathbb{E}_\mathbb{P}\left[ 1_A \exp \left(\int_0^1 v(s)dB_s - \frac{1}{2} \int_0^1 v(s)^2 ds \right) \right],
+\end{align*}
+the process $\tilde{B}_t=B_t- \langle B,N\rangle_t= B_t- \int_0^t v(s)ds=B_t-h(t)$ is a Brownian motion.  In particular we see that the Radon-Nikodým derivative of the law of $(B_t= \tilde{B}_t + h(t))_{t \leq 1}$ with respect to the law of $(B_t)_{t \leq 1}$ is given by 
+\begin{align*}
+\exp \left( \int_0^1 v(s) dB_s - \frac{1}{2} \int_0^1 v(s)^2 ds \right).
+\end{align*} 
+\begin{proof}[Proof of Girsanov's theorem] Let $T_n:= \inf \{ t >0 : |\tilde{M}_t|=n \}$ (enough to work with this sequence of stopping times thanks to exercise 9.1.). It is our goal to check that for all $t, s \geq 0$ 
+\begin{align*}
+\mathbb{E}_\mathbb{Q}( \tilde{M}_{t+s}^{T_n} \mid \mathcal{F}_t) = \tilde{M}_t^{T_n} \text{ almost surely}.
+\end{align*}
+In other words for all $A \in \mathcal{F}_t$ we have $\mathbb{E}_\mathbb{Q}( \tilde{M}_{t+s}^{T_n} 1_A)= \mathbb{E}_\mathbb{Q}( \tilde{M}_t^{T_n} 1_A).$ Or equivalently to this (only rephrased, see definition of $\mathbb{Q}$) we want to show that for all $A \in \mathcal{F}_t$ 
+\begin{align*}
+\mathbb{E}_\mathbb{P}( \mathcal{E}_\infty \tilde{M}_{t+s}^{T_n}1_A)= \mathbb{E}_\mathbb{P}( \mathcal{E}_\infty \tilde{M}_t^{T_n} 1_A). \tag{*}
+\end{align*} 
+In order to verify (*), we will show that $( \mathcal{E}_t \tilde{M}_t^{T_n})_{t \geq 0}$ is a local martingale in $( \Omega, \mathcal{F}, (\mathcal{F}_t)_{t \geq 0}, \mathbb{P})$. 
+\newpage
+Recall that $\mathcal{E}_t= \mathcal{E}(N)_t$ is a local martingale and we have already shown with the help of Itô's formula that $d \mathcal{E}_t= \mathcal{E}_t d N_t$. Also we have derived the integration by parts formula for the product of continuous semimartingales ($dX_tY_t= X_tdY_t + Y_tdX_t + d\langle X,Y \rangle_t)$. Since $(\tilde{M}_t= M_t- \langle M,N \rangle_t)_{t \geq 0}$ is a semimartingale, we can apply Itô's formula to the product $\mathcal{E}_t \tilde{M}_t$. 
+\begin{align*}
+d( \mathcal{E}_t \tilde{M}_t)&\overset{\text{Itô}}=\mathcal{E}_t d \tilde{M}_t + \tilde{M}_t d \mathcal{E}_t + d \langle \tilde{M}_t, \mathcal{E}_t \rangle_t  \\
+&= \mathcal{E}_t d M_t - \mathcal{E}_t d \langle M, N \rangle_t + \tilde{M}_t d \mathcal{E}_t + d \langle M, \mathcal{E} \rangle_t \\
+&\overset{!}= \mathcal{E}_t d M_t - \mathcal{E}_t d \langle M, N \rangle_t + \tilde{M}_t d \mathcal{E}_t + \mathcal{E}_td \langle M, N \rangle_t  \\
+&= \mathcal{E}_t d M_t + \tilde{M}_t d \mathcal{E}_t
+\end{align*}
+Hence $( \mathcal{E}_t \tilde{M}_t)_{t \geq 0}$ is a local martingale (careful, at the step we highlighted with a ! we used an exercise, namely 11.3.e, generalization of crossvariation). Similarly, the process $( \mathcal{E}_t \tilde{M}_t^{T_n})_{t \geq 0}$ is a local martingale, because $d( \mathcal{E}_t \tilde{M}_t^{T_n}) = 1_{t < T_n} d( \mathcal{E}_t \tilde{M}_t)+ 1_{t > T_n} \tilde{M}_{T_n} d \mathcal{E}_t$. 
+\\\\
+But we also know that $(\mathcal{E}_t)_{t \geq 0}$ is by assumption uniformly integrable, and $| \mathcal{E}_t\tilde{M}_t^{T_n}| \leq n \mathcal{E}_t$, this implies that for all fixed $n \geq 1$, $( \mathcal{E}_t \tilde{M}_t^{T_n})_{t \geq 0}$ is also uniformly integrable and in particular it is a true continuous martingale (for fixed $n \geq 1$). 
+\\\\
+Let $\mathcal{E}_\infty \in L^1$ denote the limit of the UI martingale $( \mathcal{E}_t)_{t \geq 0}$. We then have $\mathcal{E}_{t+s} = \mathbb{E}( \mathcal{E}_\infty \mid \mathcal{F}_{t+s})$ and thus: 
+\begin{align*}
+\mathbb{E}( \mathcal{E}_\infty \tilde{M}_{t+s}^{T_n} 1_A)= \mathbb{E}(\mathcal{E}_{t+s} \tilde{M}_{t+s}^{T_n} 1_A)  = \mathbb{E}( \mathcal{E}_t \tilde{M}_t^{T_n} 1_A)= \mathbb{E}( \mathcal{E}_\infty \tilde{M}_t^{T_n} 1_A)
+\end{align*}
+Where we used the shorthand notation $\mathbb{E}= \mathbb{E}_\mathbb{P}$, which is exactly statement (*). Since this is true for all $n \in \mathbb{N}$ this means that $\tilde{M}$ is a local martingale under the probability measure $\mathbb{Q}$ and thus concludes our proof of Girsanov's theorem. 
+\end{proof}
+Of course, in order to apply Girsanov's theorem, it is crucial to be able to check that $\mathcal{E}(N)$ is a uniformly integrable martingale. There exist some useful criteria for this (proof will be omitted here):
+\begin{prop}[Kawazaki's and Novikov's criteria] Suppose that $N$ is a local martingale  with $N_0=0$ almost surely, then:
+\begin{itemize}
+\item If $\mathbb{E}( \exp( \langle N \rangle_\infty /2)) < \infty$, then $\mathcal{E}(N)$  is uniformly integrable.
+\item If $N$ is a uniformly integrable martingale and if $\mathbb{E}( \exp( N_\infty /2)) < \infty$, then is $\mathcal{E}(N)$ uniformly integrable.
+\end{itemize}
+\end{prop}
+\newpage
+\subsection{Some consequences for SDEs}
+Let us now outline how Girsanov's theorem can be used to obtain existence results for (weak) solutions of SDEs in one dimensions under fairly weak regularity assumptions on the functions $\sigma$ and $b$.
+\\\\
+Let  us first focus on the case where $\sigma$ is constant and equal to $1$. In other words, one is looking for a real-valued process $X$ such that
+\begin{align*}
+X_t = x_0 + B_t + \int_0^t b(X_s)ds. \tag{*}
+\end{align*}
+\textbf{Strategy of construction:} Start with a filtered probability space $( \Omega, \mathcal{F}, (\mathcal{F}_t)_{t \geq 0 }, \mathbb{P})$ on which one has defined a Brownian motion started from $x_0$, denoted by $(X_t)_{t \geq 0}$.
+\\\\
+\textbf{Idea:} Find another probability measure $\mathbb{Q}$ on $(\Omega, \mathcal{F}, ( \mathcal{F}_t)_{t \geq 0})$ such that under $\mathbb{Q}$ 
+\begin{align*}
+X_t-x_0- \int_0^t b(X_s)ds
+\end{align*}
+is a Brownian motion and then call this process $(B_t)_{t \geq 0}$. Consequently in the filtered probability space $( \Omega, \mathcal{F}, ( \mathcal{F}_t)_{t \geq 0}, \mathbb{Q})$ one has 2 processes, namely $X$ and $B$ where $B$ is a Brownian motion and 
+\begin{align*}
+X_t = x_0 + B_t + \int_0^t b(X_s)ds \text{ almost surely}. 
+\end{align*}
+In particular we have constructed a weak solution to the SDE (*).\\
+\\
+Lets make our idea more formal and explicit, i.e. we wonder how we can define such a $\mathbb{Q}$:
+\begin{itemize}
+\item We start with a filtered probability space $( \Omega, \mathcal{F}, (\mathcal{F}_t)_{t \geq 0 }, \mathbb{P})$ on which the process $X$ is a Brownian motion started from $x_0$. 
+\item We then define for each $T$, the probability measure $\mathbb{Q}^T$ on $( \Omega, \mathcal{F}_T)$ (denote $\mathbb{P}^T = \mathbb{P}$ restricted to $\mathcal{F}_T)$ via
+\begin{align*}
+\frac{d \mathbb{Q}^T}{d \mathbb{P}^T}= \exp \left( \int_0^T b(X_s) d X_s - \frac{1}{2} \int_0^T b(X_s)^2 ds \right)
+\end{align*}
+Recall that Girsanov's theorem tells us that given a Brownian motion $B$ under $\mathbb{P}$, and $ d\mathbb{Q}/  d \mathbb{P}= \exp ( \int_0^t v(B_s)dB_s - \frac{1}{2} \int_0^t v(s)^2 ds)$, then under $\mathbb{Q}$ the process $\tilde{B}_t = B_t- \int_0^t v(B_s)ds$ is a Brownian motion. 
+\newpage
+\begin{itemize}
+\item This is for instance possible for all $b$ that are bounded and measurable. 
+\end{itemize}
+\item We then define $\mathbb{Q}$ on $(\Omega, \mathcal{F}_\infty)$ such that $\mathbb{Q}= \mathbb{Q}^T$ on $\mathcal{F}_T$ for each $T$.
+\begin{itemize}
+\item Under this $\mathbb{Q}:$ 
+\begin{align*}
+\left( B_t:= X_t-x_0- \int_0^t b(X_s)ds \right)_{t \leq T}
+\end{align*}
+is a Brownian motion up to time $T$. Where we used again that from Girsanov's theorem we know that $B_t= X_t-x_0 - \langle X, N \rangle_t $ is a Brownian motion. 
+\end{itemize}
+\item Then we conclude that in the probability space $( \Omega, \mathcal{F}_\infty, ( \mathcal{F}_t)_{t \geq 0 }, \mathbb{Q})$, $B$ is a Brownian motion and that almost surely, for all $t \geq 0$
+\begin{align*}
+X_t = x_0 + B_t + \int_0^t b(X_s)ds.
+\end{align*}
+\end{itemize}
+This way to construct a weak solution to this SDE can easily be generalized to higher dimensions. This time, the constraint is that $\sigma$ is constant times the identity matrix. We thus have derived the following result:
+\begin{prop} When $b$ is a bounded measurable function from $\mathbb{R}^d$ into $\mathbb{R}^d$, then for each $x_0 \in \mathbb{R}^d$, one can construct a weak solution to the SDE (in $\mathbb{R}^d$)
+\begin{align*}
+dX_t = dB_t + b(X_t)dt
+\end{align*}
+started from $X_0=x_0$.
+\end{prop}
+\begin{rem}It is noticeable that there is no continuity-type assumption on $b$ in this statement. This is in contrast with the case of ODEs, where some regularity is required to obtain existence of solutions. In some sense, the presence of the Brownian motion term has a regularising effect. 
+\end{rem}
+\newpage
+Let us now consider the case when $\sigma$ is not constant, it is then still possible to use the previous idea in order to construct a (weak) solution to the SDE 
+\begin{align*}
+d X_t = \sigma (X_t)dB_t + b(X_t)dt
+\end{align*}
+in the \textbf{one dimensional case} (we will not generalize to higher dimensions here). The difference is that instead of starting with a probability space on which $X$ is a Brownian motion (and then apply Girsanov's theorem), one has to first find a way to define a local martingale that has the right quadratic variation structure, before applying Girsanov's theorem. 
+\\
+\\
+\textbf{Assumption:} It turns out that it is useful to assume $\sigma$ is a measurable function and that there exists $0 < \epsilon < C$ such that for all $x \in \mathbb{R}$, we have $|\sigma(x)| \in [ \epsilon,C]$.
+\begin{itemize}
+\item First we need to construct a filtered probability space $(\Omega, \mathcal{F}, ( \mathcal{F}_t)_{t \geq 0}, \mathbb{P})$ on which $X$ is a local martingale started from $x_0$ with $\langle X \rangle_t= \int_0^t \sigma (X_s)^2 ds$. 
+\begin{itemize}
+\item This can be achieved by starting with a Brownian motion $( \beta_u)_{u \geq 0}$ with respect to some filtration $( \mathcal{G}_u)_{u \geq 0}$ and by appropriately time-changing it. More precisely, let 
+\begin{align*}
+t(u):= \int_0^u \frac{dv}{\sigma( \beta_v)^2}.
+\end{align*}
+Our conditions on $\sigma$ guarantee that $u \mapsto t(u)$ is an increasing continuous bijection from $[0, \infty)$ into itself. We can then define its inverse function $u(t):=t^{-1}(u)$ and let $X_t:= \beta_{u(t)}$. The process $(X_t)_{t \geq 0}$ is then a local martingale for the filtration $\mathcal{F}_t:= \mathcal{G}_{u(t)}$ and it's quadratic variation is indeed
+\begin{align*}
+\langle X \rangle_t = u(t)= \int_0^t \sigma(X_s)^2 ds. 
+\end{align*} 
+\end{itemize}
+\item Then one applies Girsanov's theorem: One chooses 
+\begin{align*}
+N_t:= \int_0^t \frac{b(X_s)}{\sigma(X_s)^2}d X_s.
+\end{align*}
+This is a continuous martingale and we have chosen it in such a way that $\langle X,N\rangle_t= \int_0^t b(X_s)ds$. We construct another probability measure $\mathbb{Q}$ on $(\Omega, \mathcal{F}, ( \mathcal{F}_t)_{t \geq 0})$ such that for all $T$, the Radon-Nikodým derivative between $\mathbb{Q}$ and $\mathbb{P}$ on $\mathcal{F}_T$ is given by 
+\begin{align*}
+\frac{d \mathbb{Q}^T}{d \mathbb{P}^T}= \exp(N_T- \langle N \rangle_T/2)
+\end{align*}
+\newpage
+\item Girsanov's theorem establishes that under the probability measure $\mathbb{Q}$, the process 
+\begin{align*}
+\tilde{X}_t:= X_t-x_0- \langle X,N \rangle_t = X_t-x_0- \int_0^t b(X_s)ds
+\end{align*}
+is a local martingale and it is such that that $d \langle \tilde{X} \rangle_t = d \langle X \rangle_t = \sigma(X_t)^2dt$. Let us then define 
+\begin{align*}
+B_t:= \int_0^t \sigma(X_s)^{-1} d \tilde{X}_s.
+\end{align*}
+We easily see that the process $B$ is a local martingale under the probability measure $\mathbb{Q}$ and we have
+\begin{align*}
+\langle B_t \rangle_t = \int_0^t \sigma(X_s)^{-2} d \langle \tilde{X} \rangle_s = \int_0^t \sigma(X_s)^{-2} \sigma(X_s)^2 ds = \int_0^t ds = t
+\end{align*}
+so by Lévy's characterization theorem, we know that $B$ is indeed a Brownian motion under the probability measure $\mathbb{Q}$. But then under this probability measure $\mathbb{Q}$ 
+\begin{align*}
+\int_0^t \sigma (X_s) d B_s = \int_0^t \sigma(X_s) \sigma(X_s)^{-1} d \tilde{X}_s = \int_0^t d \tilde{X}_s = \tilde{X}_t
+\end{align*}
+so that finally
+\begin{align*}
+X_t=x_0+ \tilde{X}_t + \int_0^t b(X_s)ds = x_0 + \int_0^t \sigma(X_s)dB_s + \int_0^t b(X_s)ds. 
+\end{align*}
+\end{itemize}
+We have thus derived:
+\begin{prop}[Existence for one-dimensional SDE via Girsanov] If there exists $\epsilon >0$ and $C$ such that for all $x \in \mathbb{R}$, $|b(x)| \leq C$ and $|\sigma(x)| > \epsilon$, and if $|\sigma|$ is bounded on any compact interval, then there exists a weak solution to the SDE $dX_t= \sigma(X_t)dB_t + b(X_t)dt$ stated from $x_0 \in \mathbb{R}$. 
+\end{prop}
+\begin{rem}The construction of solutions via Girsanov's theorem does actually provide more
+than just existence of weak solutions. It does in fact also show that any two weak solutions have
+necessarily the same law. (The idea is to go our construction above backwards and obtain that the law must be the same, will be skipped here). 
+\end{rem}
+\end{document}
